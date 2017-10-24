@@ -18,6 +18,9 @@ namespace GarageV2.Models
         public string Modell { get; set; }
         [Range(0, 12)]
         public int NumberOfWheels { get; set; }
+        public DateTime CheckInTime { get; set; }
+        public DateTime CheckOutTime { get; set; }
+        public double TotalPrice { get; set; }
 
     }
 
