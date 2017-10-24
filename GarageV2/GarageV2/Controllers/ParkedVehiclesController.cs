@@ -26,6 +26,24 @@ namespace GarageV2.Controllers
             return View();
         }
 
+        public ActionResult Overview()
+        {
+            var dbParkedVehicles = db.ParkedVehicle;
+            List<ParkedVehicle> parkedVehicles = dbParkedVehicles.ToList();
+            
+            var vehicles = parkedVehicles
+                .Select(v => new GarageV2.ViewModels.OverviewViewModel
+                {
+                    Id = v.Id,
+                    RegNo = v.RegNo,
+                    Type = v.Type,
+                    Color = v.Color
+                })
+                .ToList();
+
+            return View(vehicles);
+        }
+
         // GET: ParkedVehicles/Details/5
         public ActionResult Details(int? id)
         {

@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
-namespace GarageV2.Models
+namespace GarageV2.ViewModels
 {
-    public class ParkedVehicle
+    public class OverviewViewModel
     {
         public int Id { get; set; }
+
+        [Display(Name ="Typ")]
         public string Type { get; set; }
+
+        [Display(Name = "Reg nr")]
         public string RegNo { get; set; }
+
+        [Display(Name = "Färg")]
         public string Color { get; set; }
-        public string Brand { get; set; }
-        public string Modell { get; set; }
-        public int NumberOfWheels { get; set; }
 
     }
-
 }
