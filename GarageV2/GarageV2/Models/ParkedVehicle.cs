@@ -15,6 +15,7 @@ namespace GarageV2.Models
         public string Color { get; set; }
         public string Brand { get; set; }
         public string Modell { get; set; }
+        [Range(0, 12)]
         public int NumberOfWheels { get; set; }
 
     }
