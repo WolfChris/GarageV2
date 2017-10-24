@@ -19,8 +19,15 @@ namespace GarageV2.Models
         [Range(0, 12)]
         public int NumberOfWheels { get; set; }
         public DateTime CheckInTime { get; set; }
-        public DateTime CheckOutTime { get; set; }
+        
+        public Nullable<DateTime> CheckOutTime { get; set; }
         public double TotalPrice { get; set; }
+
+        public ParkedVehicle()
+        {
+            CheckInTime = DateTime.Now;
+            CheckOutTime = null;
+        }
 
     }
 
