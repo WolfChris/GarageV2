@@ -21,6 +21,11 @@ namespace GarageV2.Controllers
             return View(db.ParkedVehicle.ToList());
         }
 
+        public ActionResult CheckIn()
+        {
+            return View();
+        }
+
         // GET: ParkedVehicles/Details/5
         public ActionResult Details(int? id)
         {
