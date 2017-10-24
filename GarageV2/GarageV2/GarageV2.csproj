@@ -155,9 +155,11 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\GarageHandler.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParkedVehiclesController.cs" />
+    <Compile Include="DataAccessLayer\GarageContext.cs" />
     <Compile Include="DataAccessLayer\ParkedVehicleContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -166,7 +168,12 @@
     <Compile Include="Migrations\201710231411180_Garagev2Migration.Designer.cs">
       <DependentUpon>201710231411180_Garagev2Migration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710240746154_Garage.cs" />
+    <Compile Include="Migrations\201710240746154_Garage.Designer.cs">
+      <DependentUpon>201710240746154_Garage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Garage.cs" />
     <Compile Include="Models\ParkedVehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -215,6 +222,7 @@
     <Content Include="Views\ParkedVehicles\Details.cshtml" />
     <Content Include="Views\ParkedVehicles\Edit.cshtml" />
     <Content Include="Views\ParkedVehicles\Index.cshtml" />
+    <Content Include="Views\ParkedVehicles\CheckIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -230,6 +238,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201710231411180_Garagev2Migration.resx">
       <DependentUpon>201710231411180_Garagev2Migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710240746154_Garage.resx">
+      <DependentUpon>201710240746154_Garage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
