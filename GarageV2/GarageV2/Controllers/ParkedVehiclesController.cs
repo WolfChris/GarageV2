@@ -62,7 +62,21 @@ namespace GarageV2.Controllers
         // GET: ParkedVehicles/Create
         public ActionResult Create()
         {
+            
             return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CheckIn([Bind(Include = "Id,Type,RegNo,Color,Brand,Modell,NumberOfWheels")] ParkedVehicle parkedVehicle)
+        {
+            if (ModelState.IsValid)
+            {
+                db.ParkedVehicle.Add(parkedVehicle);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(parkedVehicle);
         }
 
         // POST: ParkedVehicles/Create

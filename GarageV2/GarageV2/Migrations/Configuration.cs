@@ -4,7 +4,7 @@ namespace GarageV2.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-    using Models;
+    using GarageV2.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<GarageV2.DataAccessLayer.ParkedVehicleContext>
     {
@@ -30,10 +30,10 @@ namespace GarageV2.Migrations
 
             context.ParkedVehicle.AddOrUpdate(
                 p => p.RegNo,
-                new ParkedVehicle { RegNo = "ABC123" },
-                new ParkedVehicle { RegNo = "CDE123" },
-                new ParkedVehicle { RegNo = "ABC456" },
-                new ParkedVehicle { RegNo = "CDE456" }
+                new Models.ParkedVehicle { RegNo = "ABC123" },
+                new Models.ParkedVehicle { RegNo = "CDE123" },
+                new Models.ParkedVehicle { RegNo = "ABC456" },
+                new Models.ParkedVehicle { RegNo = "CDE456" }
             );
         }
     }

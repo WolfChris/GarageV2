@@ -19,27 +19,29 @@
             @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @{
-                    List<SelectListItem> listItems = new List<SelectListItem>();
+                    List<SelectListItem>
+                        listItems = new List<SelectListItem>
+                            ();
                     listItems.Add(new SelectListItem
                     {
-                        Text = "Car",
-                        Value = "1"
+                        Text = "Bil",
+                        Value = "Bil"
                     });
                     listItems.Add(new SelectListItem
                     {
                         Text = "Motorcycle",
-                        Value = "2",
+                        Value = "Motorcycle",
 
                     });
                     listItems.Add(new SelectListItem
                     {
-                        Text = "Airplane",
-                        Value = "3"
+                        Text = "Flygplan",
+                        Value = "Flygplan"
                     });
                     listItems.Add(new SelectListItem
                     {
-                        Text = "Boat",
-                        Value = "4"
+                        Text = "Båt",
+                        Value = "Båt"
                     });
                 }
 
@@ -93,6 +95,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
+                
             </div>
         </div>
     </div>

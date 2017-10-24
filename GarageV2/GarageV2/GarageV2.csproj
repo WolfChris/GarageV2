@@ -166,6 +166,14 @@
     <Compile Include="Migrations\201710231411180_Garagev2Migration.Designer.cs">
       <DependentUpon>201710231411180_Garagev2Migration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710241218584_ParkedVehicle.cs" />
+    <Compile Include="Migrations\201710241218584_ParkedVehicle.Designer.cs">
+      <DependentUpon>201710241218584_ParkedVehicle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710241252576_ParkedVehicle1.cs" />
+    <Compile Include="Migrations\201710241252576_ParkedVehicle1.Designer.cs">
+      <DependentUpon>201710241252576_ParkedVehicle1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ParkedVehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -231,6 +239,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201710231411180_Garagev2Migration.resx">
       <DependentUpon>201710231411180_Garagev2Migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710241218584_ParkedVehicle.resx">
+      <DependentUpon>201710241218584_ParkedVehicle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710241252576_ParkedVehicle1.resx">
+      <DependentUpon>201710241252576_ParkedVehicle1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
