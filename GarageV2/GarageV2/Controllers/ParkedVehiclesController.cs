@@ -23,8 +23,26 @@ namespace GarageV2.Controllers
 
         public ActionResult CheckIn()
         {
+
+
             return View();
         }
+
+
+        //VehicleTypeModel model = new VehicleTypeModel();
+        //model.VehicleList.Add(new SelectListItem { Text = "Car", Value = "1" });
+        //model.VehicleList.Add(new SelectListItem { Text = "Motorcycle", Value = "2" });
+        //model.VehicleList.Add(new SelectListItem { Text = "Airplane", Value = "3" });
+        //model.VehicleList.Add(new SelectListItem { Text = "Boat", Value = "4" });
+
+        //public ActionResult Index()
+        //{
+        //    SubjectModel model = new SubjectModel();
+        //    model.SubjectList.Add(new SelectListItem { Text = "Physics", Value = "1" });
+        //    model.SubjectList.Add(new SelectListItem { Text = "Chemistry", Value = "2" });
+        //    model.SubjectList.Add(new SelectListItem { Text = "Mathematics", Value = "3" });
+        //    return View(model);
+        //}
 
         // GET: ParkedVehicles/Details/5
         public ActionResult Details(int? id)

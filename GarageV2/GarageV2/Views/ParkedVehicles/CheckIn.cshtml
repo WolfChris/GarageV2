@@ -7,10 +7,10 @@
 <h2>CheckIn</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>ParkedVehicle</h4>
         <hr />
@@ -18,8 +18,35 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
+                @{
+                    List<SelectListItem> listItems = new List<SelectListItem>();
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "Car",
+                        Value = "1"
+                    });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "Motorcycle",
+                        Value = "2",
+
+                    });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "Airplane",
+                        Value = "3"
+                    });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "Boat",
+                        Value = "4"
+                    });
+                }
+
+                @Html.DropDownListFor(model => model.Type, listItems, "-- Select Vehicle Type --", new { @class = "form-control" })
+                @*@Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+
             </div>
         </div>
 
@@ -69,7 +96,7 @@
             </div>
         </div>
     </div>
-}
+                    }
 
 <div>
     @Html.ActionLink("Back to List", "Index")
