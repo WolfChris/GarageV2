@@ -108,7 +108,10 @@ namespace GarageV2.Controllers
             {
                 return HttpNotFound();
             }
-            return View(parkedVehicle);
+
+            var vehicle = new GarageV2.ViewModels.DetailsViewModel(parkedVehicle);
+
+            return View(vehicle);
         }
 
         // GET: ParkedVehicles/Create
@@ -234,7 +237,7 @@ namespace GarageV2.Controllers
             return startedHours * pricePerHour;
         }
 
-        private string TimeParked(DateTime checkInTime, DateTime checkOutTime)
+        public string TimeParked(DateTime checkInTime, DateTime checkOutTime)
         {
             var timeParked = checkOutTime - checkInTime;
             string timeParkedString="";

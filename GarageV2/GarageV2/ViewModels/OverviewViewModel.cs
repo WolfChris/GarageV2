@@ -21,5 +21,6 @@ namespace GarageV2.ViewModels
 
         [Display(Name = "Parkerad tid")]
         public string TimeParked { get; set; }
+
     }
 }

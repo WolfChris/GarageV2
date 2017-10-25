@@ -27,7 +27,7 @@ namespace GarageV2.Models
         public DateTime CheckInTime { get; set; }
         [Display(Name = "Utcheckningstid")]
         public Nullable<DateTime> CheckOutTime { get; set; }
-        [Display(Name ="Totalla Priset")]
+        [Display(Name ="Totala Priset")]
         public double TotalPrice { get; set; }
 
         public ParkedVehicle()

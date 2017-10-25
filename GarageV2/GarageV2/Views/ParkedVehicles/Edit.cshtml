@@ -1,13 +1,13 @@
 ﻿@model GarageV2.Models.ParkedVehicle
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Ändra";
 }
 
-<h2>Ändra</h2>
+<h2>@ViewBag.Title</h2>
 
 
-@using (Html.BeginForm("Edit", "ParkedVehicles", FormMethod.Post))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
@@ -73,7 +73,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Overview")
+    @Html.ActionLink("Tillbaka till lista", "Overview")
 </div>
 
 @section Scripts {

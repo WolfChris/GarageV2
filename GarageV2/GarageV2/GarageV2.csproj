@@ -194,6 +194,7 @@
     <Compile Include="Models\VehicleTypeEnum.cs" />
     <Compile Include="Models\ParkedVehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\DetailsViewModel.cs" />
     <Compile Include="ViewModels\OverviewViewModel.cs" />
     <Compile Include="ViewModels\ReceiptViewModel.cs" />
   </ItemGroup>
