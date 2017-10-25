@@ -1,10 +1,7 @@
 ﻿@model GarageV2.Models.ParkedVehicle
 
-@{
-    ViewBag.Title = "AskToCheckOut";
-}
 
-<h2>Vilket fordon vill du ta bort</h2>
+<h2>Vilket fordon vill checka ut?</h2>
 
 <div id="askForRegNo"> @*Toggle show/hide*@
     @using (Html.BeginForm())
@@ -29,10 +26,9 @@
 </div>
 
 
-<div id="deleteConfirmed"> @*Toggle show/hide*@
-    <h3>&Auml;r du s&auml;ker p&aring; att du vill radera?</h3>
+<div id="checkOutConfirmed"> @*Toggle show/hide*@
+    <h3>Bekr&auml;fta utcheckning</h3>
     <div>
-        <h4>ParkedVehicle</h4>
         <hr />
         <dl class="dl-horizontal">
             <dt>
@@ -85,18 +81,55 @@
 
         </dl>
 
-        @using (Html.BeginForm("Delete", "ParkedVehicles", FormMethod.Post))
+        @using (Html.BeginForm("CheckOutConfirmed", "ParkedVehicles", FormMethod.Post))
         {
             @Html.EditorFor(model => model.RegNo, new { htmlAttributes = new { @style = "color: blue"} })
             @Html.AntiForgeryToken()
 
             <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" /> |
-                @Html.ActionLink("Back to List", "Index")
+                <input type="submit" value="Checka ut" class="btn btn-default" /> |
             </div>
         }
     </div>
 </div>
+
+@{ 
+    if (ViewBag.checkedOut!=null && ViewBag.checkedOut==true) {
+<div id="SuccessfullyCheckedOut">
+    <h4>Fordonet är utcheckat!</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>            @Html.DisplayNameFor(model => model.Type)        </dt>
+        <dd>            @Html.DisplayFor(model => model.Type)        </dd>
+
+        <dt>            @Html.DisplayNameFor(model => model.RegNo)        </dt>
+        <dd>            @Html.DisplayFor(model => model.RegNo)        </dd>
+
+        <dt>            @Html.DisplayNameFor(model => model.Color)        </dt>
+        <dd>            @Html.DisplayFor(model => model.Color)        </dd>
+
+        <dt>            @Html.DisplayNameFor(model => model.Brand)        </dt>
+        <dd>            @Html.DisplayFor(model => model.Brand)        </dd>
+
+        <dt>            @Html.DisplayNameFor(model => model.Modell)        </dt>
+        <dd>            @Html.DisplayFor(model => model.Modell)        </dd>
+
+        <dt>            @Html.DisplayNameFor(model => model.NumberOfWheels)        </dt>
+        <dd>            @Html.DisplayFor(model => model.NumberOfWheels)        </dd>
+
+        <dt>            @Html.DisplayNameFor(model => model.CheckInTime)        </dt>
+        <dd>            @Html.DisplayFor(model => model.CheckInTime)        </dd>
+
+        <dt>            @Html.DisplayNameFor(model => model.CheckOutTime)        </dt>
+        <dd>            @Html.DisplayFor(model => model.CheckOutTime)        </dd>
+
+    </dl>
+    @Html.ActionLink("Kvitto", "Receipt", Model)
+</div>
+    }
+}
+
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>

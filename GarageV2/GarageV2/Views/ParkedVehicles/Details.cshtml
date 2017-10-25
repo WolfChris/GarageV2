@@ -7,7 +7,6 @@
 <h2>@ViewBag.Title</h2>
 
 <div>
-    <h4>ParkedVehicle</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -82,6 +81,7 @@
     </dl>
 </div>
 <p>
+    @Html.ActionLink("Checka ut", "CheckOut", new { id = Model.Id }) |
     @Html.ActionLink("Ändra", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Tillbaka to lista", "Overview")
+    @Html.ActionLink("Tillbaka till lista", "Overview")
 </p>

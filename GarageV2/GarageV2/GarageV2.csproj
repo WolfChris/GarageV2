@@ -186,6 +186,7 @@
     <Compile Include="Models\ParkedVehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\OverviewViewModel.cs" />
+    <Compile Include="ViewModels\ReceiptViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -236,6 +237,7 @@
     <Content Include="Views\ParkedVehicles\Overview.cshtml" />
     <Content Include="Views\ParkedVehicles\DeleteConfirmed.cshtml" />
     <Content Include="Views\ParkedVehicles\CheckOut.cshtml" />
+    <Content Include="Views\ParkedVehicles\Receipt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
