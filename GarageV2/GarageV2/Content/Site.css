@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+
+@media print {
+  .hidden-print {
+    display: none !important;
+  }
+}
