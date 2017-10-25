@@ -30,10 +30,10 @@ namespace GarageV2.Migrations
 
             context.ParkedVehicle.AddOrUpdate(
                 p => p.RegNo,
-                new Models.ParkedVehicle { RegNo = "ABC123", CheckInTime=DateTime.Now, CheckOutTime=DateTime.Now },
-                new Models.ParkedVehicle { RegNo = "CDE123", CheckInTime = DateTime.Now, CheckOutTime = DateTime.Now },
-                new Models.ParkedVehicle { RegNo = "ABC456", CheckInTime = DateTime.Now, CheckOutTime = DateTime.Now },
-                new Models.ParkedVehicle { RegNo = "CDE456", CheckInTime = DateTime.Now, CheckOutTime = DateTime.Now }
+                new Models.ParkedVehicle { RegNo = "ABC123", CheckInTime=DateTime.Now.Add(new TimeSpan(-36,0,0))},
+                new Models.ParkedVehicle { RegNo = "CDE123", CheckInTime = DateTime.Now.Add(new TimeSpan(-1, -10, -25)) },
+                new Models.ParkedVehicle { RegNo = "ABC456", CheckInTime = DateTime.Now.Add(new TimeSpan(0,-1, -59)) },
+                new Models.ParkedVehicle { RegNo = "CDE456", CheckInTime = DateTime.Now }
             );
         }
     }

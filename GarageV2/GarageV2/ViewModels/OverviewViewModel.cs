@@ -19,5 +19,7 @@ namespace GarageV2.ViewModels
         [Display(Name = "Färg")]
         public string Color { get; set; }
 
+        [Display(Name = "Parkerad tid")]
+        public string TimeParked { get; set; }
     }
 }

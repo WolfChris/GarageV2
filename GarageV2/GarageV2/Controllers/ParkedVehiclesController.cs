@@ -31,14 +31,15 @@ namespace GarageV2.Controllers
         {
             var dbParkedVehicles = db.ParkedVehicle;
             List<ParkedVehicle> parkedVehicles = dbParkedVehicles.ToList();
-            
+
             var vehicles = parkedVehicles
                 .Select(v => new GarageV2.ViewModels.OverviewViewModel
                 {
                     Id = v.Id,
                     RegNo = v.RegNo,
                     Type = v.Type,
-                    Color = v.Color
+                    Color = v.Color,
+                    TimeParked = TimeParked(v.CheckInTime,DateTime.Now)
                 })
                 .ToList();
 
@@ -231,6 +232,17 @@ namespace GarageV2.Controllers
             int startedHours = (int)Math.Ceiling(totalParkedHours);
 
             return startedHours * pricePerHour;
+        }
+
+        private string TimeParked(DateTime checkInTime, DateTime checkOutTime)
+        {
+            var timeParked = checkOutTime - checkInTime;
+            string timeParkedString="";
+            if (timeParked.Days > 0) timeParkedString += timeParked.ToString($"%d") + " dagar ";
+            if (timeParked.Hours > 0) timeParkedString += timeParked.ToString($"%h") + " timmar ";
+            if (timeParked.Minutes > 0) timeParkedString += timeParked.ToString($"%m") + " minuter ";
+            if (timeParked.Seconds > 0) timeParkedString += timeParked.ToString($"%s") + " sekunder ";
+            return timeParkedString;
         }
 
         protected override void Dispose(bool disposing)
