@@ -8,7 +8,7 @@ namespace GarageV2.Models
     public enum VehicleTypeEnum
     {
         Bil,
-        Motorcycle,
+        Motorcykel,
         Flygplan,
         Båt
     }
