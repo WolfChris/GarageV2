@@ -37,7 +37,7 @@ namespace GarageV2.Controllers
                 {
                     Id = v.Id,
                     RegNo = v.RegNo,
-                    Type = v.Type,
+                    Type = v.Type.ToString(),
                     Color = v.Color
                 })
                 .ToList();
@@ -118,7 +118,7 @@ namespace GarageV2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CheckIn([Bind(Include = "Id,Type,RegNo,Color,Brand,Modell,NumberOfWheels")] ParkedVehicle parkedVehicle)
+        public ActionResult CheckIn([Bind(Include = "Id,Type,RegNo,Color,Brand,Model,NumberOfWheels")] ParkedVehicle parkedVehicle)
         {
             if (ModelState.IsValid)
             {
@@ -135,7 +135,7 @@ namespace GarageV2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Type,RegNo,Color,Brand,Modell,NumberOfWheels")] ParkedVehicle parkedVehicle)
+        public ActionResult Create([Bind(Include = "Id,Type,RegNo,Color,Brand,Model,NumberOfWheels")] ParkedVehicle parkedVehicle)
         {
             if (ModelState.IsValid)
             {
@@ -172,7 +172,7 @@ namespace GarageV2.Controllers
             }
             var vehicleToUpdate = db.ParkedVehicle.Find(id);
             if (TryUpdateModel(vehicleToUpdate, "",
-               new string[] { "Id","Type","RegNo","Color","Brand","Modell","NumberOfWheels" }))
+               new string[] { "Id","Type","RegNo","Color","Brand","Model","NumberOfWheels" }))
             {
                 try
                 {

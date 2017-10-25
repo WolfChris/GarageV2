@@ -9,13 +9,13 @@ namespace GarageV2.Models
     public class ParkedVehicle
     {
         public int Id { get; set; }
-        public string Type { get; set; }
+        public Nullable<VehicleTypeEnum> Type { get; set; }
 
         [Required]
         public string RegNo { get; set; }
         public string Color { get; set; }
         public string Brand { get; set; }
-        public string Modell { get; set; }
+        public string Model { get; set; }
         [Range(0, 12)]
         public int NumberOfWheels { get; set; }
         public DateTime CheckInTime { get; set; }

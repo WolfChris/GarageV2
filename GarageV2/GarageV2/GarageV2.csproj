@@ -182,7 +182,16 @@
     <Compile Include="Migrations\201710241417168_ParkedVehicle3.Designer.cs">
       <DependentUpon>201710241417168_ParkedVehicle3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710251200150_vehicleTypeEnum.cs" />
+    <Compile Include="Migrations\201710251200150_vehicleTypeEnum.Designer.cs">
+      <DependentUpon>201710251200150_vehicleTypeEnum.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710251222448_vehicleTypeEnum2.cs" />
+    <Compile Include="Migrations\201710251222448_vehicleTypeEnum2.Designer.cs">
+      <DependentUpon>201710251222448_vehicleTypeEnum2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\VehicleTypeEnum.cs" />
     <Compile Include="Models\ParkedVehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\OverviewViewModel.cs" />
@@ -265,6 +274,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710241417168_ParkedVehicle3.resx">
       <DependentUpon>201710241417168_ParkedVehicle3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710251200150_vehicleTypeEnum.resx">
+      <DependentUpon>201710251200150_vehicleTypeEnum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710251222448_vehicleTypeEnum2.resx">
+      <DependentUpon>201710251222448_vehicleTypeEnum2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
