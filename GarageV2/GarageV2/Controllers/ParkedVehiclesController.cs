@@ -44,6 +44,42 @@ namespace GarageV2.Controllers
             return View(vehicles);
         }
 
+        public ActionResult CheckOut()
+        {
+            return View();
+        }
+
+        // GET: VehicleDetails/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CheckOut(string RegNo)
+        {
+
+            if (RegNo.Equals(null))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ParkedVehicle vehicleDetail = db.ParkedVehicle.FirstOrDefault(v => v.RegNo == RegNo);
+            if (vehicleDetail == null)
+            {
+                return HttpNotFound();
+            }
+            return View(vehicleDetail);
+        }
+
+        // POST: VehicleDetails/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed2(string RegNo)
+        {
+
+            ParkedVehicle vehicleDetail = db.ParkedVehicle.FirstOrDefault(v => v.RegNo == RegNo);
+            db.ParkedVehicle.Remove(vehicleDetail);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
         // GET: ParkedVehicles/Details/5
         public ActionResult Details(int? id)
         {
@@ -142,7 +178,7 @@ namespace GarageV2.Controllers
         }
 
         // POST: ParkedVehicles/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("delete123")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
