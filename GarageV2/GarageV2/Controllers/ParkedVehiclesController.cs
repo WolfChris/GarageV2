@@ -109,8 +109,12 @@ namespace GarageV2.Controllers
                 return HttpNotFound();
             }
 
-            var vehicle = new GarageV2.ViewModels.DetailsViewModel(parkedVehicle, pricePerHour);
-            
+            var vehicle = new GarageV2.ViewModels.DetailsViewModel(parkedVehicle);
+           
+            var currentTime = DateTime.Now;
+            vehicle.TotalPrice = TotalPriceString(vehicle.CheckInTime, currentTime, pricePerHour);
+            vehicle.TimeParked = TimeParked(vehicle.CheckInTime, currentTime);
+
             return View(vehicle);
         }
 
@@ -221,13 +225,20 @@ namespace GarageV2.Controllers
 
         public ActionResult Receipt(ParkedVehicle checkedOutVehicle)
         {
-            var receiptVehicle = new ViewModels.ReceiptViewModel(checkedOutVehicle, pricePerHour);
-            //receiptVehicle.TotalPrice = TotalPrice(receiptVehicle.CheckInTime, (DateTime)receiptVehicle.CheckOutTime, pricePerHour, pricePerHour);
+            var receiptVehicle = new ViewModels.ReceiptViewModel(checkedOutVehicle);
+            
+            receiptVehicle.TotalPrice = TotalPriceString(receiptVehicle.CheckInTime, receiptVehicle.CheckOutTime, pricePerHour);
+            receiptVehicle.TimeParked = TimeParked(receiptVehicle.CheckInTime, receiptVehicle.CheckOutTime);
 
             return View(receiptVehicle);
         }
 
-        public static double TotalPrice(DateTime checkInTime, DateTime checkOutTime, double pricePerHour)
+        private string TotalPriceString(DateTime checkInTime, DateTime checkOutTime, double pricePerHour)
+        {
+            return string.Format("{0:F0} kr", TotalPrice(checkInTime,checkOutTime, pricePerHour));
+        }
+
+        private double TotalPrice(DateTime checkInTime, DateTime checkOutTime, double pricePerHour)
         {
             var totalParkedTime = checkOutTime - checkInTime;
             double totalParkedHours = ((TimeSpan)totalParkedTime).TotalHours;
@@ -237,7 +248,7 @@ namespace GarageV2.Controllers
             return startedHours * pricePerHour;
         }
 
-        public static string TimeParked(DateTime checkInTime, DateTime checkOutTime)
+        private string TimeParked(DateTime checkInTime, DateTime checkOutTime)
         {
             var timeParked = checkOutTime - checkInTime;
             string timeParkedString="";

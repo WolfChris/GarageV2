@@ -37,8 +37,9 @@ namespace GarageV2.ViewModels
         [Display(Name = "Estimerad kostnad")]
         public string TotalPrice { get; set; }
 
-        public DetailsViewModel(Models.ParkedVehicle vehicle, double pricePerHour)
+        public DetailsViewModel(Models.ParkedVehicle vehicle)
         {
+            Id = vehicle.Id;
             RegNo = vehicle.RegNo;
             Type = vehicle.Type.ToString();
             Color = vehicle.Color;
@@ -46,12 +47,6 @@ namespace GarageV2.ViewModels
             Model = vehicle.Model;
             NumberOfWheels = vehicle.NumberOfWheels;
             CheckInTime = vehicle.CheckInTime;
-
-            var currentTime = DateTime.Now;
-            double totalPrice = Controllers.ParkedVehiclesController.TotalPrice(CheckInTime, currentTime, pricePerHour);
-            TotalPrice = string.Format("{0:F0} kr", totalPrice);
-            
-            TimeParked = Controllers.ParkedVehiclesController.TimeParked(CheckInTime, currentTime);
         }
     }
 }
