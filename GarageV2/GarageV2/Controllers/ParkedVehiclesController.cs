@@ -27,11 +27,56 @@ namespace GarageV2.Controllers
             return View();
         }
 
-        public ActionResult Overview()
+        public ActionResult Overview(string searchBy, string search)
         {
             var dbParkedVehicles = db.ParkedVehicle;
             List<ParkedVehicle> parkedVehicles = dbParkedVehicles.ToList();
 
+            if (searchBy == "RegNo")
+            {
+                var vehiclesRegNo = parkedVehicles.Where(v => v.RegNo == search).
+                Select(v => new GarageV2.ViewModels.OverviewViewModel
+                {
+                    Id = v.Id,
+                    RegNo = v.RegNo,
+                    Type = v.Type.ToString(),
+                    Color = v.Color,
+                    TimeParked = TimeParked(v.CheckInTime, DateTime.Now)
+                })
+                .ToList();
+
+                return View(vehiclesRegNo);
+            }
+            //if (searchBy == "vehicleType")
+            //{
+            //    var vehiclesRegNo = parkedVehicles.Where(v => v.Type.Equals(vehicle)).
+            //    Select(v => new GarageV2.ViewModels.OverviewViewModel
+            //    {
+            //        Id = v.Id,
+            //        RegNo = v.RegNo,
+            //        Type = v.Type.ToString(),
+            //        Color = v.Color,
+            //        TimeParked = TimeParked(v.CheckInTime, DateTime.Now)
+            //    })
+            //    .ToList();
+
+            //    return View(vehiclesRegNo);
+            //}
+            if (searchBy == "Color")
+            {
+                var vehiclesRegNo = parkedVehicles.Where(v => v.Color == search).
+                Select(v => new GarageV2.ViewModels.OverviewViewModel
+                {
+                    Id = v.Id,
+                    RegNo = v.RegNo,
+                    Type = v.Type.ToString(),
+                    Color = v.Color,
+                    TimeParked = TimeParked(v.CheckInTime, DateTime.Now)
+                })
+                .ToList();
+
+                return View(vehiclesRegNo);
+            }
             var vehicles = parkedVehicles
                 .Select(v => new GarageV2.ViewModels.OverviewViewModel
                 {

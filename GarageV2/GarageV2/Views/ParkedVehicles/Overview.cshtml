@@ -1,10 +1,22 @@
 ﻿@model IEnumerable<GarageV2.ViewModels.OverviewViewModel>
+@*@model GarageV2.Models.ParkedVehicle*@
 
 @{
     ViewBag.Title = "Parkerade fordon";
 }
 
 <h2>@ViewBag.Title</h2>
+
+<p>
+    @using (Html.BeginForm("Overview", "ParkedVehicles", FormMethod.Get))
+    {
+        <label class="control-label col-md-1">S&ouml;k via: </label>
+        @Html.RadioButton("searchBy", "RegNo", true) <text>Registreringsnummer</text><br />
+        @Html.RadioButton("searchBy", "Color") <text>F&auml;rg</text><br />
+        @Html.TextBox("search", "", new { htmlAttributes = new { @class = "form-control" } }) <input type="submit" value="Sök" class="btn btn-default" />
+        @*@Html.EditorFor(model => model.RegNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ange registreringsnummer"} })*@
+    }
+</p>
 
 <table class="table">
     <tr>
@@ -22,27 +34,40 @@
         </th>
         <th></th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RegNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Color)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TimeParked)
-        </td>
-        <td>
-            @Html.ActionLink("Detaljer", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Ändra", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Checka ut", "CheckOut", new { id = item.Id })
-        </td>
-    </tr>
-}
-
+    @if (Model.Count() == 0)
+    {
+        <tr>
+            <td colspan="4">
+                Inga fordon kan visas utefter din sökning
+                <div>
+                    @Html.ActionLink("Visa Parkerade Fordon", "Overview")
+                </div>
+            </td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeParked)
+                </td>
+                <td>
+                    @Html.ActionLink("Detaljer", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Ändra", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Checka ut", "CheckOut", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    }
 </table>
