@@ -39,9 +39,6 @@
         <tr>
             <td colspan="4">
                 Inga fordon kan visas utefter din sökning
-                <div>
-                    @Html.ActionLink("Visa Parkerade Fordon", "Overview")
-                </div>
             </td>
         </tr>
     }
@@ -71,3 +68,8 @@
         }
     }
 </table>
+
+<div>
+    <br />
+    @Html.ActionLink("Visa alla parkerade fordon", "Overview")
+</div>

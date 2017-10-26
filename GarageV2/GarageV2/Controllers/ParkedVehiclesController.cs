@@ -15,8 +15,8 @@ namespace GarageV2.Controllers
     {
         private double pricePerHour = 13.5;
         private ParkedVehicleContext db = new ParkedVehicleContext();
-        
-        public ActionResult Index() 
+
+        public ActionResult Index()
         {
             return RedirectToAction("Overview");
         }
@@ -91,7 +91,7 @@ namespace GarageV2.Controllers
             ViewBag.checkedOut = false;
             return View();
         }
-        
+
         [HttpPost, ActionName("CheckOutConfirmed")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed2(string RegNo)
@@ -110,11 +110,61 @@ namespace GarageV2.Controllers
 
         #region Overview, Details, Edit
 
-        public ActionResult Overview()
+        //public ActionResult Overview()
+        //{
+        //    var dbParkedVehicles = db.ParkedVehicle;
+        //    List<ParkedVehicle> parkedVehicles = dbParkedVehicles.ToList();
+
+        //    var vehicles = parkedVehicles
+        //        .Select(v => new GarageV2.ViewModels.OverviewViewModel
+        //        {
+        //            Id = v.Id,
+        //            RegNo = v.RegNo,
+        //            Type = v.Type.ToString(),
+        //            Color = v.Color,
+        //            TimeParked = TimeParked(v.CheckInTime,DateTime.Now)
+        //        })
+        //        .ToList();
+
+        //    return View(vehicles);
+        //}        
+
+        public ActionResult Overview(string searchBy, string search)
         {
             var dbParkedVehicles = db.ParkedVehicle;
             List<ParkedVehicle> parkedVehicles = dbParkedVehicles.ToList();
 
+            if (searchBy == "RegNo")
+            {
+                var vehiclesRegNo = parkedVehicles.Where(v => v.RegNo == search).
+                Select(v => new GarageV2.ViewModels.OverviewViewModel
+                {
+                    Id = v.Id,
+                    RegNo = v.RegNo,
+                    Type = v.Type.ToString(),
+                    Color = v.Color,
+                    TimeParked = TimeParked(v.CheckInTime, DateTime.Now)
+                })
+                .ToList();
+
+                return View(vehiclesRegNo);
+            }
+
+            if (searchBy == "Color")
+            {
+                var vehiclesRegNo = parkedVehicles.Where(v => v.Color == search).
+                Select(v => new GarageV2.ViewModels.OverviewViewModel
+                {
+                    Id = v.Id,
+                    RegNo = v.RegNo,
+                    Type = v.Type.ToString(),
+                    Color = v.Color,
+                    TimeParked = TimeParked(v.CheckInTime, DateTime.Now)
+                })
+                .ToList();
+
+                return View(vehiclesRegNo);
+            }
             var vehicles = parkedVehicles
                 .Select(v => new GarageV2.ViewModels.OverviewViewModel
                 {
@@ -122,7 +172,7 @@ namespace GarageV2.Controllers
                     RegNo = v.RegNo,
                     Type = v.Type.ToString(),
                     Color = v.Color,
-                    TimeParked = TimeParked(v.CheckInTime,DateTime.Now)
+                    TimeParked = TimeParked(v.CheckInTime, DateTime.Now)
                 })
                 .ToList();
 
@@ -142,7 +192,7 @@ namespace GarageV2.Controllers
             }
 
             var vehicle = new GarageV2.ViewModels.DetailsViewModel(parkedVehicle);
-           
+
             var currentTime = DateTime.Now;
             vehicle.TotalPrice = TotalPriceString(vehicle.CheckInTime, currentTime, pricePerHour);
             vehicle.TimeParked = TimeParked(vehicle.CheckInTime, currentTime);
@@ -206,12 +256,12 @@ namespace GarageV2.Controllers
         }
 
         #endregion
-        
+
         #region Functions
 
         private string TotalPriceString(DateTime checkInTime, DateTime checkOutTime, double pricePerHour)
         {
-            return string.Format("{0:F0} kr", TotalPrice(checkInTime,checkOutTime, pricePerHour));
+            return string.Format("{0:F0} kr", TotalPrice(checkInTime, checkOutTime, pricePerHour));
         }
 
         private double TotalPrice(DateTime checkInTime, DateTime checkOutTime, double pricePerHour)
@@ -227,7 +277,7 @@ namespace GarageV2.Controllers
         private string TimeParked(DateTime checkInTime, DateTime checkOutTime)
         {
             var timeParked = checkOutTime - checkInTime;
-            string timeParkedString="";
+            string timeParkedString = "";
             if (timeParked.Days > 0) timeParkedString += timeParked.ToString($"%d") + " dagar ";
             if (timeParked.Hours > 0) timeParkedString += timeParked.ToString($"%h") + " timmar ";
             if (timeParked.Minutes > 0) timeParkedString += timeParked.ToString($"%m") + " minuter ";
