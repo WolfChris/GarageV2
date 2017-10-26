@@ -23,17 +23,18 @@ namespace GarageV2.ViewModels
         public string TimeParked { get; set; }
 
         [Display(Name = "Pris")]
-        public double TotalPrice { get; set; }
+        public string TotalPrice { get; set; }
 
-        public ReceiptViewModel(Models.ParkedVehicle vehicle)
+        public ReceiptViewModel(Models.ParkedVehicle vehicle, double pricePerHour)
         {
             RegNo = vehicle.RegNo;
             CheckInTime = vehicle.CheckInTime;
             CheckOutTime = (DateTime)vehicle.CheckOutTime;
-            TotalPrice = vehicle.TotalPrice;
-
-            var timeParked =  CheckOutTime - CheckInTime;
-            TimeParked = (((TimeSpan)timeParked).TotalHours).ToString();
+            
+            double totalPrice = Controllers.ParkedVehiclesController.TotalPrice(CheckInTime, CheckOutTime, pricePerHour);
+            TotalPrice = string.Format("{0:F0} kr", totalPrice);
+            
+            TimeParked = Controllers.ParkedVehiclesController.TimeParked(CheckInTime, CheckOutTime);
         }
 
     }

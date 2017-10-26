@@ -34,10 +34,10 @@ namespace GarageV2.ViewModels
         [Display(Name = "Parkerad tid")]
         public string TimeParked { get; set; }
 
-        [Display(Name = "Totalt pris")]
-        public double TotalPrice { get; set; }
+        [Display(Name = "Estimerad kostnad")]
+        public string TotalPrice { get; set; }
 
-        public DetailsViewModel(Models.ParkedVehicle vehicle)
+        public DetailsViewModel(Models.ParkedVehicle vehicle, double pricePerHour)
         {
             RegNo = vehicle.RegNo;
             Type = vehicle.Type.ToString();
@@ -46,10 +46,12 @@ namespace GarageV2.ViewModels
             Model = vehicle.Model;
             NumberOfWheels = vehicle.NumberOfWheels;
             CheckInTime = vehicle.CheckInTime;
-            TotalPrice = vehicle.TotalPrice;
 
-            var timeParked = DateTime.Now - CheckInTime;
-            TimeParked = (((TimeSpan)timeParked).TotalHours).ToString();
+            var currentTime = DateTime.Now;
+            double totalPrice = Controllers.ParkedVehiclesController.TotalPrice(CheckInTime, currentTime, pricePerHour);
+            TotalPrice = string.Format("{0:F0} kr", totalPrice);
+            
+            TimeParked = Controllers.ParkedVehiclesController.TimeParked(CheckInTime, currentTime);
         }
     }
 }

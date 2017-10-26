@@ -109,8 +109,8 @@ namespace GarageV2.Controllers
                 return HttpNotFound();
             }
 
-            var vehicle = new GarageV2.ViewModels.DetailsViewModel(parkedVehicle);
-
+            var vehicle = new GarageV2.ViewModels.DetailsViewModel(parkedVehicle, pricePerHour);
+            
             return View(vehicle);
         }
 
@@ -221,13 +221,13 @@ namespace GarageV2.Controllers
 
         public ActionResult Receipt(ParkedVehicle checkedOutVehicle)
         {
-            var receiptVehicle = new ViewModels.ReceiptViewModel(checkedOutVehicle);
-            receiptVehicle.TotalPrice = TotalPrice(receiptVehicle.CheckInTime, (DateTime)receiptVehicle.CheckOutTime);
+            var receiptVehicle = new ViewModels.ReceiptViewModel(checkedOutVehicle, pricePerHour);
+            //receiptVehicle.TotalPrice = TotalPrice(receiptVehicle.CheckInTime, (DateTime)receiptVehicle.CheckOutTime, pricePerHour, pricePerHour);
 
             return View(receiptVehicle);
         }
 
-        private double TotalPrice(DateTime checkInTime, DateTime checkOutTime)
+        public static double TotalPrice(DateTime checkInTime, DateTime checkOutTime, double pricePerHour)
         {
             var totalParkedTime = checkOutTime - checkInTime;
             double totalParkedHours = ((TimeSpan)totalParkedTime).TotalHours;
@@ -237,7 +237,7 @@ namespace GarageV2.Controllers
             return startedHours * pricePerHour;
         }
 
-        public string TimeParked(DateTime checkInTime, DateTime checkOutTime)
+        public static string TimeParked(DateTime checkInTime, DateTime checkOutTime)
         {
             var timeParked = checkOutTime - checkInTime;
             string timeParkedString="";
