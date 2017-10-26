@@ -19,7 +19,7 @@ namespace GarageV2.Controllers
         // GET: ParkedVehicles
         public ActionResult Index()
         {
-            return View(db.ParkedVehicle.ToList());
+            return RedirectToAction("Overview");  /*View(db.ParkedVehicle.ToList());*/
         }
 
         public ActionResult CheckIn()
