@@ -34,7 +34,7 @@ namespace GarageV2.ViewModels
         [Display(Name = "Parkerad tid")]
         public string TimeParked { get; set; }
 
-        [Display(Name = "Estimerad kostnad")]
+        [Display(Name = "Beräknat pris")]
         public string TotalPrice { get; set; }
 
         public DetailsViewModel(Models.ParkedVehicle vehicle)

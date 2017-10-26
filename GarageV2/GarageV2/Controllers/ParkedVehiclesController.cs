@@ -16,35 +16,34 @@ namespace GarageV2.Controllers
         private double pricePerHour = 13.5;
         private ParkedVehicleContext db = new ParkedVehicleContext();
         
-        // GET: ParkedVehicles
-        public ActionResult Index()
+        public ActionResult Index() 
         {
-            return RedirectToAction("Overview");  /*View(db.ParkedVehicle.ToList());*/
+            return RedirectToAction("Overview");
         }
+
+        #region CheckIn
 
         public ActionResult CheckIn()
         {
             return View();
         }
 
-        public ActionResult Overview()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CheckIn([Bind(Include = "Id,Type,RegNo,Color,Brand,Model,NumberOfWheels")] ParkedVehicle parkedVehicle)
         {
-            var dbParkedVehicles = db.ParkedVehicle;
-            List<ParkedVehicle> parkedVehicles = dbParkedVehicles.ToList();
+            if (ModelState.IsValid)
+            {
+                db.ParkedVehicle.Add(parkedVehicle);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
 
-            var vehicles = parkedVehicles
-                .Select(v => new GarageV2.ViewModels.OverviewViewModel
-                {
-                    Id = v.Id,
-                    RegNo = v.RegNo,
-                    Type = v.Type.ToString(),
-                    Color = v.Color,
-                    TimeParked = TimeParked(v.CheckInTime,DateTime.Now)
-                })
-                .ToList();
-
-            return View(vehicles);
+            return View(parkedVehicle);
         }
+        #endregion
+
+        #region CheckOut
 
         public ActionResult CheckOut(int? id)
         {
@@ -64,12 +63,11 @@ namespace GarageV2.Controllers
             return View();
         }
 
-        // GET: VehicleDetails/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CheckOut(string RegNo)
         {
-            
+
 
             if (RegNo.Equals(null))
             {
@@ -93,8 +91,7 @@ namespace GarageV2.Controllers
             ViewBag.checkedOut = false;
             return View();
         }
-
-        // POST: VehicleDetails/Delete/5
+        
         [HttpPost, ActionName("CheckOutConfirmed")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed2(string RegNo)
@@ -106,11 +103,32 @@ namespace GarageV2.Controllers
             db.SaveChanges();
             vehicleDetail.CheckOutTime = DateTime.Now;
             ViewBag.checkedOut = true;
-            return View("CheckOut",vehicleDetail);
+            return View("CheckOut", vehicleDetail);
         }
 
+        #endregion
 
-        // GET: ParkedVehicles/Details/5
+        #region Overview, Details, Edit
+
+        public ActionResult Overview()
+        {
+            var dbParkedVehicles = db.ParkedVehicle;
+            List<ParkedVehicle> parkedVehicles = dbParkedVehicles.ToList();
+
+            var vehicles = parkedVehicles
+                .Select(v => new GarageV2.ViewModels.OverviewViewModel
+                {
+                    Id = v.Id,
+                    RegNo = v.RegNo,
+                    Type = v.Type.ToString(),
+                    Color = v.Color,
+                    TimeParked = TimeParked(v.CheckInTime,DateTime.Now)
+                })
+                .ToList();
+
+            return View(vehicles);
+        }
+
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -132,44 +150,6 @@ namespace GarageV2.Controllers
             return View(vehicle);
         }
 
-        // GET: ParkedVehicles/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CheckIn([Bind(Include = "Id,Type,RegNo,Color,Brand,Model,NumberOfWheels")] ParkedVehicle parkedVehicle)
-        {
-            if (ModelState.IsValid)
-            {
-                db.ParkedVehicle.Add(parkedVehicle);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(parkedVehicle);
-        }
-
-        // POST: ParkedVehicles/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Type,RegNo,Color,Brand,Model,NumberOfWheels")] ParkedVehicle parkedVehicle)
-        {
-            if (ModelState.IsValid)
-            {
-                db.ParkedVehicle.Add(parkedVehicle);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(parkedVehicle);
-        }
-
-        // GET: ParkedVehicles/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -194,7 +174,7 @@ namespace GarageV2.Controllers
             }
             var vehicleToUpdate = db.ParkedVehicle.Find(id);
             if (TryUpdateModel(vehicleToUpdate, "",
-               new string[] { "Id","Type","RegNo","Color","Brand","Model","NumberOfWheels" }))
+               new string[] { "Id", "Type", "RegNo", "Color", "Brand", "Model", "NumberOfWheels" }))
             {
                 try
                 {
@@ -210,42 +190,24 @@ namespace GarageV2.Controllers
             }
             return View(vehicleToUpdate);
         }
-      
-        // GET: ParkedVehicles/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ParkedVehicle parkedVehicle = db.ParkedVehicle.Find(id);
-            if (parkedVehicle == null)
-            {
-                return HttpNotFound();
-            }
-            return View(parkedVehicle);
-        }
 
-        // POST: ParkedVehicles/Delete/5
-        [HttpPost, ActionName("delete123")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            ParkedVehicle parkedVehicle = db.ParkedVehicle.Find(id);
-            db.ParkedVehicle.Remove(parkedVehicle);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        #endregion
+
+        #region Receipt
 
         public ActionResult Receipt(ParkedVehicle checkedOutVehicle)
         {
             var receiptVehicle = new ViewModels.ReceiptViewModel(checkedOutVehicle);
-            
+
             receiptVehicle.TotalPrice = TotalPriceString(receiptVehicle.CheckInTime, receiptVehicle.CheckOutTime, pricePerHour);
             receiptVehicle.TimeParked = TimeParked(receiptVehicle.CheckInTime, receiptVehicle.CheckOutTime);
 
             return View(receiptVehicle);
         }
+
+        #endregion
+        
+        #region Functions
 
         private string TotalPriceString(DateTime checkInTime, DateTime checkOutTime, double pricePerHour)
         {
@@ -272,6 +234,7 @@ namespace GarageV2.Controllers
             if (timeParked.Seconds > 0) timeParkedString += timeParked.ToString($"%s") + " sekunder ";
             return timeParkedString;
         }
+        #endregion
 
         protected override void Dispose(bool disposing)
         {
