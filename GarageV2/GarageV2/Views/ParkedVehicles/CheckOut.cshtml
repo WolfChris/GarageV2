@@ -1,102 +1,111 @@
 ﻿@model GarageV2.Models.ParkedVehicle
 
 
-<h2>Vilket fordon vill checka ut?</h2>
-
-<div id="askForRegNo"> @*Toggle show/hide*@
-    @using (Html.BeginForm())
+@{
+    if (ViewBag.AskForRegNo != null && ViewBag.AskForRegNo == true)
     {
-        @Html.AntiForgeryToken()
+        <h2>Vilket fordon vill checka ut?</h2>
+        <div id="askForRegNo">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            <hr />
-            <div class="form-group">
-                @Html.LabelFor(model => model.RegNo, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.RegNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ange registreringsnummer", @id = "askForRegNo" } })
+                <div class="form-horizontal">
+                    <hr />
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RegNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.RegNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ange registreringsnummer", @id = "askForRegNo" } })
+                            @Html.ValidationMessageFor(model => model.RegNo, "", new { @class = "text-danger"})
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Checka ut" class="btn btn-default" />
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Checka ut" class="btn btn-default" />
-                </div>
-            </div>
+            }
         </div>
     }
-</div>
+}
 
+@{
+    if (ViewBag.ConfirmedCheckOut != null && ViewBag.ConfirmedCheckOut == true)
+    {
+        <div id="checkOutConfirmed">
+            <h2>Bekr&auml;fta utcheckning</h2>
+            <div>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Type)
+                    </dt>
 
-<div id="checkOutConfirmed"> @*Toggle show/hide*@
-    <h3>Bekr&auml;fta utcheckning</h3>
-    <div>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Type)
-            </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Type)
+                    </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Type)
-            </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.RegNo)
+                    </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.RegNo)
-            </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.RegNo)
+                    </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.RegNo)
-            </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Color)
+                    </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Color)
-            </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Color)
+                    </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Color)
-            </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Brand)
+                    </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Brand)
-            </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Brand)
+                    </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Brand)
-            </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Model)
+                    </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Model)
-            </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Model)
+                    </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Model)
-            </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.NumberOfWheels)
+                    </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.NumberOfWheels)
-            </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.NumberOfWheels)
+                    </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.NumberOfWheels)
-            </dd>
+                </dl>
 
-        </dl>
+                @using (Html.BeginForm("CheckOutConfirmed", "ParkedVehicles", FormMethod.Post))
+                {
+                    @Html.EditorFor(model => model.RegNo, new { htmlAttributes = new { @style = "display: none" } })
+                    @Html.AntiForgeryToken()
 
-        @using (Html.BeginForm("CheckOutConfirmed", "ParkedVehicles", FormMethod.Post))
-        {
-            @Html.EditorFor(model => model.RegNo, new { htmlAttributes = new { @style = "color: blue"} })
-            @Html.AntiForgeryToken()
-
-            <div class="form-actions no-color">
-                <input type="submit" value="Checka ut" class="btn btn-default" /> |
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Checka ut" class="btn btn-default" /> |
+                    </div>
+                }
             </div>
+        </div>
         }
-    </div>
-</div>
+    }
 
 @{ 
     if (ViewBag.checkedOut!=null && ViewBag.checkedOut==true) {
 <div id="SuccessfullyCheckedOut">
-    <h4>Fordonet är utcheckat!</h4>
+    <h2>Fordonet är utcheckat!</h2>
     <hr />
     <dl class="dl-horizontal">
 

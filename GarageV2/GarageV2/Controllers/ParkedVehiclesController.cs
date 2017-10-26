@@ -48,6 +48,8 @@ namespace GarageV2.Controllers
 
         public ActionResult CheckOut(int? id)
         {
+            ViewBag.AskForRegNo = true;
+            ViewBag.ConfirmedCheckOut = false;
             ViewBag.checkedOut = false;
 
             if (id != null)
@@ -67,18 +69,29 @@ namespace GarageV2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CheckOut(string RegNo)
         {
-            ViewBag.checkedOut = false;
+            
 
             if (RegNo.Equals(null))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ParkedVehicle vehicleDetail = db.ParkedVehicle.FirstOrDefault(v => v.RegNo == RegNo);
+
             if (vehicleDetail == null)
             {
-                return HttpNotFound();
+                ModelState.AddModelError("RegNo", "Registreringsnumret finns inte");
             }
-            return View(vehicleDetail);
+            if (ModelState.IsValid)
+            {
+                ViewBag.AskForRegNo = false;
+                ViewBag.ConfirmedCheckOut = true;
+                ViewBag.checkedOut = false;
+                return View(vehicleDetail);
+            }
+            ViewBag.AskForRegNo = true;
+            ViewBag.ConfirmedCheckOut = false;
+            ViewBag.checkedOut = false;
+            return View();
         }
 
         // POST: VehicleDetails/Delete/5
@@ -86,6 +99,7 @@ namespace GarageV2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed2(string RegNo)
         {
+            ViewBag.AskForRegNo = false;
 
             ParkedVehicle vehicleDetail = db.ParkedVehicle.FirstOrDefault(v => v.RegNo == RegNo);
             db.ParkedVehicle.Remove(vehicleDetail);
