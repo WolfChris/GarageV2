@@ -13,7 +13,6 @@ namespace GarageV2.Controllers
 {
     public class ParkedVehiclesController : Controller
     {
-        private double pricePerHour = 13.5;
         private ParkedVehicleContext db = new ParkedVehicleContext();
 
         public ActionResult Index()
@@ -121,32 +120,15 @@ namespace GarageV2.Controllers
             db.ParkedVehicle.Remove(vehicleDetail);
             db.SaveChanges();
             vehicleDetail.CheckOutTime = DateTime.Now;
+            double pricePerHour = db.Garage.FirstOrDefault().PricePerHour;
+            vehicleDetail.TotalPrice = TotalPrice(vehicleDetail.CheckInTime, (DateTime)vehicleDetail.CheckOutTime, pricePerHour);
             ViewBag.checkedOut = true;
             return View("CheckOut", vehicleDetail);
         }
 
         #endregion
 
-        #region Overview, Details, Edit
-
-        //public ActionResult Overview()
-        //{
-        //    var dbParkedVehicles = db.ParkedVehicle;
-        //    List<ParkedVehicle> parkedVehicles = dbParkedVehicles.ToList();
-
-        //    var vehicles = parkedVehicles
-        //        .Select(v => new GarageV2.ViewModels.OverviewViewModel
-        //        {
-        //            Id = v.Id,
-        //            RegNo = v.RegNo,
-        //            Type = v.Type.ToString(),
-        //            Color = v.Color,
-        //            TimeParked = TimeParked(v.CheckInTime,DateTime.Now)
-        //        })
-        //        .ToList();
-
-        //    return View(vehicles);
-        //}        
+        #region Overview, Details, Edit    
 
         public ActionResult Overview(string searchBy, string search)
         {
@@ -211,6 +193,7 @@ namespace GarageV2.Controllers
             }
 
             var vehicle = new GarageV2.ViewModels.DetailsViewModel(parkedVehicle);
+            double pricePerHour = db.Garage.FirstOrDefault().PricePerHour;
 
             var currentTime = DateTime.Now;
             vehicle.TotalPrice = TotalPriceString(vehicle.CheckInTime, currentTime, pricePerHour);
@@ -267,8 +250,9 @@ namespace GarageV2.Controllers
         public ActionResult Receipt(ParkedVehicle checkedOutVehicle)
         {
             var receiptVehicle = new ViewModels.ReceiptViewModel(checkedOutVehicle);
+            double  pricePerHour = db.Garage.FirstOrDefault().PricePerHour;
 
-            receiptVehicle.PricePerHour = string.Format("{0:F2} kr", pricePerHour);
+        receiptVehicle.PricePerHour = string.Format("{0:F2} kr", pricePerHour);
             receiptVehicle.TotalPrice = TotalPriceString(receiptVehicle.CheckInTime, receiptVehicle.CheckOutTime, pricePerHour);
             receiptVehicle.TimeParked = TimeParked(receiptVehicle.CheckInTime, receiptVehicle.CheckOutTime);
 

@@ -158,7 +158,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParkedVehiclesController.cs" />
-    <Compile Include="DataAccessLayer\GarageContext.cs" />
     <Compile Include="DataAccessLayer\ParkedVehicleContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -194,6 +193,14 @@
     <Compile Include="Migrations\201710260945339_AddGarage.cs" />
     <Compile Include="Migrations\201710260945339_AddGarage.Designer.cs">
       <DependentUpon>201710260945339_AddGarage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710311436151_AddGarage2.cs" />
+    <Compile Include="Migrations\201710311436151_AddGarage2.Designer.cs">
+      <DependentUpon>201710311436151_AddGarage2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710311447293_RemoveGarageContext.cs" />
+    <Compile Include="Migrations\201710311447293_RemoveGarageContext.Designer.cs">
+      <DependentUpon>201710311447293_RemoveGarageContext.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Garage.cs" />
@@ -287,6 +294,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710260945339_AddGarage.resx">
       <DependentUpon>201710260945339_AddGarage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710311436151_AddGarage2.resx">
+      <DependentUpon>201710311436151_AddGarage2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710311447293_RemoveGarageContext.resx">
+      <DependentUpon>201710311447293_RemoveGarageContext.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

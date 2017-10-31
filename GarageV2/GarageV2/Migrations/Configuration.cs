@@ -15,18 +15,6 @@ namespace GarageV2.Migrations
 
         protected override void Seed(GarageV2.DataAccessLayer.ParkedVehicleContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
 
             context.ParkedVehicle.AddOrUpdate(
                 p => p.RegNo,
@@ -34,6 +22,11 @@ namespace GarageV2.Migrations
                 new Models.ParkedVehicle { RegNo = "CDE123", CheckInTime = DateTime.Now.Add(new TimeSpan(-1, -10, -25)) },
                 new Models.ParkedVehicle { RegNo = "ABC456", CheckInTime = DateTime.Now.Add(new TimeSpan(0,-1, -59)) },
                 new Models.ParkedVehicle { RegNo = "CDE456", CheckInTime = DateTime.Now }
+            );
+
+            context.Garage.AddOrUpdate(
+                g => new { g.Capacity, g.PricePerHour },
+                new Models.Garage { Capacity = 10, PricePerHour = 13.5 }
             );
         }
     }
