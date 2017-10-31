@@ -7,7 +7,7 @@
 @{
     if (ViewBag.AskForRegNo != null && ViewBag.AskForRegNo == true)
     {
-        <h2>Vilket fordon vill checka ut?</h2>
+        <h2>Vilket fordon vill du checka ut?</h2>
         <div id="askForRegNo">
             @using (Html.BeginForm())
             {
@@ -40,60 +40,34 @@
             <h2>Bekr&auml;fta utcheckning</h2>
             <div>
                 <hr />
+
                 <dl class="dl-horizontal">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Type)
-                    </dt>
+                    <dt>                        @Html.DisplayNameFor(model => model.Type)                    </dt>
+                    <dd>                        @Html.DisplayFor(model => model.Type)                    </dd>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.Type)
-                    </dd>
+                    <dt>                        @Html.DisplayNameFor(model => model.RegNo)                    </dt>
+                    <dd>                        @Html.DisplayFor(model => model.RegNo)                    </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.RegNo)
-                    </dt>
+                    <dt>                        @Html.DisplayNameFor(model => model.Color)                    </dt>
+                    <dd>                        @Html.DisplayFor(model => model.Color)                    </dd>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.RegNo)
-                    </dd>
+                    <dt>                        @Html.DisplayNameFor(model => model.Brand)                    </dt>
+                    <dd>                        @Html.DisplayFor(model => model.Brand)                    </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Color)
-                    </dt>
+                    <dt>                        @Html.DisplayNameFor(model => model.Model)                    </dt>
+                    <dd>                        @Html.DisplayFor(model => model.Model)                    </dd>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.Color)
-                    </dd>
+                    <dt>                        @Html.DisplayNameFor(model => model.NumberOfWheels)                    </dt>
+                    <dd>                        @Html.DisplayFor(model => model.NumberOfWheels)                    </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Brand)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Brand)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.Model)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.Model)
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.NumberOfWheels)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.NumberOfWheels)
-                    </dd>
+                    <dt>                        @Html.DisplayNameFor(model => model.CheckInTime)                    </dt>
+                    <dd>                        @Html.DisplayFor(model => model.CheckInTime)                    </dd>
 
                 </dl>
 
                 @using (Html.BeginForm("CheckOutConfirmed", "ParkedVehicles", FormMethod.Post))
                 {
-                    @Html.EditorFor(model => model.RegNo, new { htmlAttributes = new { @style = "display: none" } })
+                    @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @type = "hidden" } })
                     @Html.AntiForgeryToken()
 
                     <div class="form-actions no-color">
@@ -136,6 +110,9 @@
         <dt>            @Html.DisplayNameFor(model => model.CheckOutTime)        </dt>
         <dd>            @Html.DisplayFor(model => model.CheckOutTime)        </dd>
 
+        <dt>            @Html.DisplayNameFor(model => model.TotalPriceString)        </dt>
+        <dd>            @Html.DisplayFor(model => model.TotalPriceString)        </dd>
+
     </dl>
     @Html.ActionLink("Kvitto", "Receipt", Model)
 </div>
@@ -144,7 +121,7 @@
 
 <div>
     <br />
-    @Html.ActionLink("Visa Parkerade Fordon", "Overview")
+    @Html.ActionLink("Visa parkerade fordon", "Overview")
 </div>
 
 @section Scripts {

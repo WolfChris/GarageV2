@@ -9,26 +9,41 @@ namespace GarageV2.Models
     public class ParkedVehicle
     {
         public int Id { get; set; }
+
         [Display(Name = "Typ")]
         public Nullable<VehicleTypeEnum> Type { get; set; }
+
         [Required]
-        [Display(Name = "Reg Nr")]
+        [Display(Name = "Reg nr")]
         public string RegNo { get; set; }
+
         [Display(Name = "Färg")]
         public string Color { get; set; }
+
         [Display(Name = "Märke")]
         public string Brand { get; set; }
+
         [Display(Name = "Modell")]
         public string Model { get; set; }
+
         [Range(0, 12)]
-        [Display(Name = "Antal Hjul")]
+        [Display(Name = "Antal hjul")]
         public int NumberOfWheels { get; set; }
-        [Display(Name ="Incheckningstid")]
+
+        [Display(Name = "Incheckad")]
         public DateTime CheckInTime { get; set; }
-        [Display(Name = "Utcheckningstid")]
+
+        [Display(Name = "Utcheckad")]
         public Nullable<DateTime> CheckOutTime { get; set; }
-        [Display(Name ="Totala Priset")]
+
+        [Display(Name = "Totalt pris")]
         public double TotalPrice { get; set; }
+
+        [Display(Name = "Totalt pris")]
+        public string TotalPriceString
+        {
+            get { return string.Format("{0:F0} kr", TotalPrice); }
+        }
 
         public ParkedVehicle()
         {

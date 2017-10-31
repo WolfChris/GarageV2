@@ -22,8 +22,11 @@ namespace GarageV2.ViewModels
         [Display(Name = "Parkerad tid")]
         public string TimeParked { get; set; }
 
-        [Display(Name = "Pris")]
+        [Display(Name = "Totalt pris")]
         public string TotalPrice { get; set; }
+
+        [Display(Name = "Pris per timme")]
+        public string PricePerHour { get; set; }
 
         public ReceiptViewModel(Models.ParkedVehicle vehicle)
         {

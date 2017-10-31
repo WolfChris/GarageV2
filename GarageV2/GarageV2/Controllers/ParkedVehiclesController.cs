@@ -67,8 +67,6 @@ namespace GarageV2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CheckOut(string RegNo)
         {
-
-
             if (RegNo.Equals(null))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -77,7 +75,7 @@ namespace GarageV2.Controllers
 
             if (vehicleDetail == null)
             {
-                ModelState.AddModelError("RegNo", "Registreringsnumret finns inte");
+                ModelState.AddModelError("RegNo", "Registreringsnumret hittades inte");
             }
             if (ModelState.IsValid)
             {
@@ -89,16 +87,37 @@ namespace GarageV2.Controllers
             ViewBag.AskForRegNo = true;
             ViewBag.ConfirmedCheckOut = false;
             ViewBag.checkedOut = false;
-            return View();
+            return View("CheckOut");
+        }
+        
+        public ActionResult ConfirmCheckOut(int id)
+        {
+            ParkedVehicle vehicleDetail = db.ParkedVehicle.FirstOrDefault(v => v.Id == id);               
+
+            if (vehicleDetail == null)
+            {
+                ModelState.AddModelError("RegNo", "Registreringsnumret hittades inte");
+            }
+            if (ModelState.IsValid)
+            {
+                ViewBag.AskForRegNo = false;
+                ViewBag.ConfirmedCheckOut = true;
+                ViewBag.checkedOut = false;
+                return View("CheckOut",vehicleDetail);
+            }
+            ViewBag.AskForRegNo = true;
+            ViewBag.ConfirmedCheckOut = false;
+            ViewBag.checkedOut = false;
+            return View("CheckOut");
         }
 
-        [HttpPost, ActionName("CheckOutConfirmed")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed2(string RegNo)
+        public ActionResult CheckOutConfirmed(int id)//string RegNo)
         {
             ViewBag.AskForRegNo = false;
 
-            ParkedVehicle vehicleDetail = db.ParkedVehicle.FirstOrDefault(v => v.RegNo == RegNo);
+            ParkedVehicle vehicleDetail = db.ParkedVehicle.FirstOrDefault(v => v.Id == id);
             db.ParkedVehicle.Remove(vehicleDetail);
             db.SaveChanges();
             vehicleDetail.CheckOutTime = DateTime.Now;
@@ -249,6 +268,7 @@ namespace GarageV2.Controllers
         {
             var receiptVehicle = new ViewModels.ReceiptViewModel(checkedOutVehicle);
 
+            receiptVehicle.PricePerHour = string.Format("{0:F2} kr", pricePerHour);
             receiptVehicle.TotalPrice = TotalPriceString(receiptVehicle.CheckInTime, receiptVehicle.CheckOutTime, pricePerHour);
             receiptVehicle.TimeParked = TimeParked(receiptVehicle.CheckInTime, receiptVehicle.CheckOutTime);
 
@@ -278,10 +298,14 @@ namespace GarageV2.Controllers
         {
             var timeParked = checkOutTime - checkInTime;
             string timeParkedString = "";
-            if (timeParked.Days > 0) timeParkedString += timeParked.ToString($"%d") + " dagar ";
-            if (timeParked.Hours > 0) timeParkedString += timeParked.ToString($"%h") + " timmar ";
-            if (timeParked.Minutes > 0) timeParkedString += timeParked.ToString($"%m") + " minuter ";
-            if (timeParked.Seconds > 0) timeParkedString += timeParked.ToString($"%s") + " sekunder ";
+            if (timeParked.Days == 1) timeParkedString += timeParked.ToString($"%d") + " dag ";
+            if (timeParked.Days > 1) timeParkedString += timeParked.ToString($"%d") + " dagar ";
+            if (timeParked.Hours == 1) timeParkedString += timeParked.ToString($"%h") + " timme ";
+            if (timeParked.Hours > 1) timeParkedString += timeParked.ToString($"%h") + " timmar ";
+            if (timeParked.Minutes == 1) timeParkedString += timeParked.ToString($"%m") + " minut ";
+            if (timeParked.Minutes > 1) timeParkedString += timeParked.ToString($"%m") + " minuter ";
+            if (timeParked.Seconds == 1) timeParkedString += timeParked.ToString($"%s") + " sekund ";
+            if (timeParked.Seconds > 1) timeParkedString += timeParked.ToString($"%s") + " sekunder ";
             return timeParkedString;
         }
         #endregion
