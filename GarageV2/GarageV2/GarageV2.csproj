@@ -212,6 +212,10 @@
     <Compile Include="Migrations\201711021041087_typeIdChanges.Designer.cs">
       <DependentUpon>201711021041087_typeIdChanges.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711021203079_virtualChanges.cs" />
+    <Compile Include="Migrations\201711021203079_virtualChanges.Designer.cs">
+      <DependentUpon>201711021203079_virtualChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Garage.cs" />
     <Compile Include="Models\Member.cs" />
@@ -323,6 +327,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711021041087_typeIdChanges.resx">
       <DependentUpon>201711021041087_typeIdChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711021203079_virtualChanges.resx">
+      <DependentUpon>201711021203079_virtualChanges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

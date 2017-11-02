@@ -25,6 +25,8 @@ namespace GarageV2.Models
                 return FirstName + " " + LastName;
             }
         }
+
+        public virtual ICollection<ParkedVehicle> ParkedVehicles { get; set; }
         
 
     }

@@ -56,6 +56,8 @@ namespace GarageV2.Models
 
         public virtual VehicleType Type { get; set; }
 
+        public virtual Member Member { get; set; }
+
     }
 
 }
