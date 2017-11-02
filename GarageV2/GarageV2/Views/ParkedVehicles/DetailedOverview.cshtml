@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GarageV2.ViewModels.OverviewViewModel>
+﻿@model IEnumerable<GarageV2.ViewModels.DetailedOverviewViewModel>
 
 @{
     ViewBag.Title = "Parkerade fordon";
@@ -17,7 +17,7 @@
     }
 </p>
 
-@Html.ActionLink("Visa detaljer", "DetailedOverview") 
+@Html.ActionLink("Dölj detaljer", "Overview")
 <table class="table">
     <tr>
         <th>
@@ -31,6 +31,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.TimeParked)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckInTime)
         </th>
         <th></th>
     </tr>
@@ -58,6 +61,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.TimeParked)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CheckInTime)
                 </td>
                 <td>
                     @Html.ActionLink("Detaljer", "Details", new { id = item.Id }) |

@@ -30,23 +30,23 @@ namespace GarageV2.Migrations
 
             var vehicleTypes = new[]
             {
-                new Models.VehicleType { Type = "Bil" },
-                new Models.VehicleType { Type = "Buss" },
-                new Models.VehicleType { Type = "Flygplan" },
-                new Models.VehicleType { Type = "Båt" },
-                new Models.VehicleType { Type = "Motorcykel" }
+                new Models.VehicleType { Name = "Bil" },
+                new Models.VehicleType { Name = "Buss" },
+                new Models.VehicleType { Name = "Flygplan" },
+                new Models.VehicleType { Name = "Båt" },
+                new Models.VehicleType { Name = "Motorcykel" }
             };
 
-            context.VehicleType.AddOrUpdate(v => new { v.Type }, vehicleTypes);
+            context.VehicleType.AddOrUpdate(v => new { v.Name }, vehicleTypes);
             context.SaveChanges();
 
             context.ParkedVehicle.AddOrUpdate(
                 p => p.RegNo,
-                new Models.ParkedVehicle { RegNo = "ABC123", TypeId = vehicleTypes[0].Id, MemberId = members[0].Id, CheckInTime=DateTime.Now.Add(new TimeSpan(-36,0,0))},
-                new Models.ParkedVehicle { RegNo = "AWS111", TypeId = vehicleTypes[2].Id, MemberId = members[1].Id, CheckInTime = DateTime.Now.Add(new TimeSpan(-36, 0, 0)) },
-                new Models.ParkedVehicle { RegNo = "CDE123", TypeId = vehicleTypes[1].Id, MemberId = members[2].Id, CheckInTime = DateTime.Now.Add(new TimeSpan(-1, -10, -25)) },
-                new Models.ParkedVehicle { RegNo = "ABC456", TypeId = vehicleTypes[4].Id, MemberId = members[3].Id, CheckInTime = DateTime.Now.Add(new TimeSpan(0,-1, -59)) },
-                new Models.ParkedVehicle { RegNo = "CDE456", TypeId = vehicleTypes[3].Id, MemberId = members[4].Id, CheckInTime = DateTime.Now }
+                new Models.ParkedVehicle { RegNo = "ABC123", VehicleTypeId = vehicleTypes[0].Id, MemberId = members[0].Id, CheckInTime=DateTime.Now.Add(new TimeSpan(-36,0,0))},
+                new Models.ParkedVehicle { RegNo = "AWS111", VehicleTypeId = vehicleTypes[2].Id, MemberId = members[1].Id, CheckInTime = DateTime.Now.Add(new TimeSpan(-36, 0, 0)) },
+                new Models.ParkedVehicle { RegNo = "CDE123", VehicleTypeId = vehicleTypes[1].Id, MemberId = members[2].Id, CheckInTime = DateTime.Now.Add(new TimeSpan(-1, -10, -25)) },
+                new Models.ParkedVehicle { RegNo = "ABC456", VehicleTypeId = vehicleTypes[4].Id, MemberId = members[3].Id, CheckInTime = DateTime.Now.Add(new TimeSpan(0,-1, -59)) },
+                new Models.ParkedVehicle { RegNo = "CDE456", VehicleTypeId = vehicleTypes[3].Id, MemberId = members[4].Id, CheckInTime = DateTime.Now }
             );
 
             context.Garage.AddOrUpdate(

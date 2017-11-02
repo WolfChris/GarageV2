@@ -24,7 +24,14 @@ namespace GarageV2.Controllers
 
         public ActionResult CheckIn()
         {
-            return View();
+            var checkInViewModel = new ViewModels.CheckInViewModel();
+            checkInViewModel.VehicleTypes = db.VehicleType.ToList().Select(v => new SelectListItem
+            {
+                Value = v.Id.ToString(),
+                Text = v.Name
+            });
+
+            return View(checkInViewModel);
         }
 
         [HttpPost]
@@ -130,7 +137,26 @@ namespace GarageV2.Controllers
 
         #region Overview, Details, Edit    
 
-        public ActionResult Overview(string searchBy, string search)
+        public ActionResult DetailedOverview()
+        {
+            var dbParkedVehicles = db.ParkedVehicle;
+            List<ParkedVehicle> parkedVehicles = dbParkedVehicles.ToList();
+            var vehicles = parkedVehicles
+                .Select(v => new GarageV2.ViewModels.DetailedOverviewViewModel
+                {
+                    Id = v.Id,
+                    RegNo = v.RegNo,
+                    VehicleType = v.VehicleType.Name,
+                    Owner = v.Member.FullName,
+                    TimeParked = TimeParked(v.CheckInTime, DateTime.Now),
+                    CheckInTime = v.CheckInTime
+                })
+                .ToList();
+
+            return View(vehicles);
+        }
+
+            public ActionResult Overview(string searchBy, string search)
         {
             var dbParkedVehicles = db.ParkedVehicle;
             List<ParkedVehicle> parkedVehicles = dbParkedVehicles.ToList();
@@ -142,8 +168,8 @@ namespace GarageV2.Controllers
                 {
                     Id = v.Id,
                     RegNo = v.RegNo,
-                    Type = v.Type.ToString(),
-                    Color = v.Color,
+                    VehicleType = v.VehicleType.Name,
+                    Owner = v.Member.FullName,
                     TimeParked = TimeParked(v.CheckInTime, DateTime.Now)
                 })
                 .ToList();
@@ -158,8 +184,8 @@ namespace GarageV2.Controllers
                 {
                     Id = v.Id,
                     RegNo = v.RegNo,
-                    Type = v.Type.ToString(),
-                    Color = v.Color,
+                    VehicleType = v.VehicleType.Name,
+                    Owner = v.Member.FullName,
                     TimeParked = TimeParked(v.CheckInTime, DateTime.Now)
                 })
                 .ToList();
@@ -171,8 +197,8 @@ namespace GarageV2.Controllers
                 {
                     Id = v.Id,
                     RegNo = v.RegNo,
-                    Type = v.Type.ToString(),
-                    Color = v.Color,
+                    VehicleType = v.VehicleType.Name,
+                    Owner = v.Member.FullName,
                     TimeParked = TimeParked(v.CheckInTime, DateTime.Now)
                 })
                 .ToList();

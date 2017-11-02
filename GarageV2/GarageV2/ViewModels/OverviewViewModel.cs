@@ -10,14 +10,14 @@ namespace GarageV2.ViewModels
     {
         public int Id { get; set; }
 
-        [Display(Name ="Typ")]
-        public string Type { get; set; }
+        [Display(Name = "Ägare")]
+        public string Owner { get; set; }
+
+        [Display(Name ="Fordonstyp")]
+        public string VehicleType { get; set; }
 
         [Display(Name = "Reg nr")]
         public string RegNo { get; set; }
-
-        [Display(Name = "Färg")]
-        public string Color { get; set; }
 
         [Display(Name = "Parkerad tid")]
         public string TimeParked { get; set; }

@@ -41,7 +41,7 @@ namespace GarageV2.ViewModels
         {
             Id = vehicle.Id;
             RegNo = vehicle.RegNo;
-            Type = vehicle.Type.ToString();
+            Type = vehicle.VehicleType.Name;
             Color = vehicle.Color;
             Brand = vehicle.Brand;
             Model = vehicle.Model;

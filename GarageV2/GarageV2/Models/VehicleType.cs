@@ -9,8 +9,7 @@ namespace GarageV2.Models
     public class VehicleType
     {
         public int Id { get; set; }
-
-        [Display(Name = "Typ")]
-        public String Type { get; set; }
+        
+        public String Name { get; set; }
     }
 }

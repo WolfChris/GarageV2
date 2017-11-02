@@ -4,22 +4,24 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace GarageV2.Models
+namespace GarageV2.ViewModels
 {
-    public class ParkedVehicle
+    public class DetailedOverviewViewModel 
     {
         public int Id { get; set; }
 
-        [Display(Name = "Typ Id")]
-        public int VehicleTypeId { get; set; }
+        [Display(Name = "Ägare")]
+        public string Owner { get; set; }
 
-        [Display(Name = "Medlems Id")]        
-        public int MemberId { get; set; }
+        [Display(Name = "Fordonstyp")]
+        public string VehicleType { get; set; }
 
-        [Required]
         [Display(Name = "Reg nr")]
         public string RegNo { get; set; }
 
+        [Display(Name = "Parkerad tid")]
+        public string TimeParked { get; set; }
+        
         [Display(Name = "Färg")]
         public string Color { get; set; }
 
@@ -28,8 +30,7 @@ namespace GarageV2.Models
 
         [Display(Name = "Modell")]
         public string Model { get; set; }
-
-        [Range(0, 12)]
+        
         [Display(Name = "Antal hjul")]
         public int NumberOfWheels { get; set; }
 
@@ -46,18 +47,6 @@ namespace GarageV2.Models
         public string TotalPriceString
         {
             get { return string.Format("{0:F0} kr", TotalPrice); }
-        }
-
-        public ParkedVehicle()
-        {
-            CheckInTime = DateTime.Now;
-            CheckOutTime = null;
-        }
-
-        public virtual VehicleType VehicleType { get; set; }
-
-        public virtual Member Member { get; set; }
-
+        }      
     }
-
 }

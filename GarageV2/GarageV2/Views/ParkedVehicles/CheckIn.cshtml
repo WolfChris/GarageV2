@@ -1,4 +1,4 @@
-﻿@model GarageV2.Models.ParkedVehicle
+﻿@model GarageV2.ViewModels.CheckInViewModel
 
 @{
     ViewBag.Title = "Checka in";
@@ -16,12 +16,12 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.VehicleType.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
 
-                @Html.EnumDropDownListFor(model => model.Type, "-- Välj fordonstyp --", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Type)
-                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.VehicleType, Model.VehicleTypes)
+                @Html.ValidationMessageFor(model => model.VehicleType.Name)
+                @Html.ValidationMessageFor(model => model.VehicleType.Name, "", new { @class = "text-danger" })
 
             </div>
         </div>

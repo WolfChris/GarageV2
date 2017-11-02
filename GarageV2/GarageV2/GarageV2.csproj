@@ -216,6 +216,18 @@
     <Compile Include="Migrations\201711021203079_virtualChanges.Designer.cs">
       <DependentUpon>201711021203079_virtualChanges.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711021224296_changeTypeToStringInParkedVEhicle.cs" />
+    <Compile Include="Migrations\201711021224296_changeTypeToStringInParkedVEhicle.Designer.cs">
+      <DependentUpon>201711021224296_changeTypeToStringInParkedVEhicle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711021240138_VrhicleType.cs" />
+    <Compile Include="Migrations\201711021240138_VrhicleType.Designer.cs">
+      <DependentUpon>201711021240138_VrhicleType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711021517282_CheckInViewModel.cs" />
+    <Compile Include="Migrations\201711021517282_CheckInViewModel.Designer.cs">
+      <DependentUpon>201711021517282_CheckInViewModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Garage.cs" />
     <Compile Include="Models\Member.cs" />
@@ -223,6 +235,8 @@
     <Compile Include="Models\VehicleTypeEnum.cs" />
     <Compile Include="Models\ParkedVehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CheckInViewModel.cs" />
+    <Compile Include="ViewModels\DetailedOverviewViewModel.cs" />
     <Compile Include="ViewModels\DetailsViewModel.cs" />
     <Compile Include="ViewModels\OverviewViewModel.cs" />
     <Compile Include="ViewModels\ReceiptViewModel.cs" />
@@ -279,6 +293,7 @@
     <Content Include="Views\TmpParkedVehicles\Details.cshtml" />
     <Content Include="Views\TmpParkedVehicles\Edit.cshtml" />
     <Content Include="Views\TmpParkedVehicles\Index.cshtml" />
+    <Content Include="Views\ParkedVehicles\DetailedOverview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -330,6 +345,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711021203079_virtualChanges.resx">
       <DependentUpon>201711021203079_virtualChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711021224296_changeTypeToStringInParkedVEhicle.resx">
+      <DependentUpon>201711021224296_changeTypeToStringInParkedVEhicle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711021240138_VrhicleType.resx">
+      <DependentUpon>201711021240138_VrhicleType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711021517282_CheckInViewModel.resx">
+      <DependentUpon>201711021517282_CheckInViewModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
