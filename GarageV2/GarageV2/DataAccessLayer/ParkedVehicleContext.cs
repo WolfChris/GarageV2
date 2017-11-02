@@ -10,6 +10,8 @@ namespace GarageV2.DataAccessLayer
     {
         public DbSet<Models.ParkedVehicle> ParkedVehicle { get; set; }
         public DbSet<Models.Garage> Garage { get; set; }
+        public DbSet<Models.VehicleType> VehicleType { get; set; }
+        public DbSet<Models.Member> Member { get; set; }
 
         public ParkedVehicleContext() : base("GarageV2Connection")
         {

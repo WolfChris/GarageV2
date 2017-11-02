@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -158,6 +159,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParkedVehiclesController.cs" />
+    <Compile Include="Controllers\TmpParkedVehiclesController.cs" />
     <Compile Include="DataAccessLayer\ParkedVehicleContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -202,8 +204,18 @@
     <Compile Include="Migrations\201710311447293_RemoveGarageContext.Designer.cs">
       <DependentUpon>201710311447293_RemoveGarageContext.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711021012164_addMemberVehicleType.cs" />
+    <Compile Include="Migrations\201711021012164_addMemberVehicleType.Designer.cs">
+      <DependentUpon>201711021012164_addMemberVehicleType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711021041087_typeIdChanges.cs" />
+    <Compile Include="Migrations\201711021041087_typeIdChanges.Designer.cs">
+      <DependentUpon>201711021041087_typeIdChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Garage.cs" />
+    <Compile Include="Models\Member.cs" />
+    <Compile Include="Models\VehicleType.cs" />
     <Compile Include="Models\VehicleTypeEnum.cs" />
     <Compile Include="Models\ParkedVehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -258,6 +270,11 @@
     <Content Include="Views\ParkedVehicles\Overview.cshtml" />
     <Content Include="Views\ParkedVehicles\CheckOut.cshtml" />
     <Content Include="Views\ParkedVehicles\Receipt.cshtml" />
+    <Content Include="Views\TmpParkedVehicles\Create.cshtml" />
+    <Content Include="Views\TmpParkedVehicles\Delete.cshtml" />
+    <Content Include="Views\TmpParkedVehicles\Details.cshtml" />
+    <Content Include="Views\TmpParkedVehicles\Edit.cshtml" />
+    <Content Include="Views\TmpParkedVehicles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -300,6 +317,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710311447293_RemoveGarageContext.resx">
       <DependentUpon>201710311447293_RemoveGarageContext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711021012164_addMemberVehicleType.resx">
+      <DependentUpon>201711021012164_addMemberVehicleType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711021041087_typeIdChanges.resx">
+      <DependentUpon>201711021041087_typeIdChanges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

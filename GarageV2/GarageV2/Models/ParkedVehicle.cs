@@ -10,8 +10,11 @@ namespace GarageV2.Models
     {
         public int Id { get; set; }
 
-        [Display(Name = "Typ")]
-        public Nullable<VehicleTypeEnum> Type { get; set; }
+        [Display(Name = "Typ Id")]
+        public int TypeId { get; set; }
+
+        [Display(Name = "Medlems Id")]        
+        public int MemberId { get; set; }
 
         [Required]
         [Display(Name = "Reg nr")]
@@ -50,6 +53,8 @@ namespace GarageV2.Models
             CheckInTime = DateTime.Now;
             CheckOutTime = null;
         }
+
+        public virtual VehicleType Type { get; set; }
 
     }
 
