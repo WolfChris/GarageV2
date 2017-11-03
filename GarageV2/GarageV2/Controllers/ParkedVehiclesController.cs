@@ -148,8 +148,14 @@ namespace GarageV2.Controllers
                     RegNo = v.RegNo,
                     VehicleType = v.VehicleType.Name,
                     Owner = v.Member.FullName,
-                    TimeParked = TimeParked(v.CheckInTime, DateTime.Now),
-                    CheckInTime = v.CheckInTime
+                    TimeParked = TimeParkedShortString(v.CheckInTime, DateTime.Now),
+                    CheckInTime = v.CheckInTime,
+                    CheckOutTime = v.CheckOutTime,
+                    Color=v.Color,
+                    Brand = v.Brand,
+                    Model = v.Model,
+                    NumberOfWheels = v.NumberOfWheels,
+                    TotalPrice = TotalPriceString(v.CheckInTime, DateTime.Now, db.Garage.FirstOrDefault().PricePerHour)
                 })
                 .ToList();
 
@@ -170,7 +176,7 @@ namespace GarageV2.Controllers
                     RegNo = v.RegNo,
                     VehicleType = v.VehicleType.Name,
                     Owner = v.Member.FullName,
-                    TimeParked = TimeParked(v.CheckInTime, DateTime.Now)
+                    TimeParked = TimeParkedLongString(v.CheckInTime, DateTime.Now)
                 })
                 .ToList();
 
@@ -186,7 +192,7 @@ namespace GarageV2.Controllers
                     RegNo = v.RegNo,
                     VehicleType = v.VehicleType.Name,
                     Owner = v.Member.FullName,
-                    TimeParked = TimeParked(v.CheckInTime, DateTime.Now)
+                    TimeParked = TimeParkedLongString(v.CheckInTime, DateTime.Now)
                 })
                 .ToList();
 
@@ -199,7 +205,7 @@ namespace GarageV2.Controllers
                     RegNo = v.RegNo,
                     VehicleType = v.VehicleType.Name,
                     Owner = v.Member.FullName,
-                    TimeParked = TimeParked(v.CheckInTime, DateTime.Now)
+                    TimeParked = TimeParkedLongString(v.CheckInTime, DateTime.Now)
                 })
                 .ToList();
 
@@ -223,7 +229,7 @@ namespace GarageV2.Controllers
 
             var currentTime = DateTime.Now;
             vehicle.TotalPrice = TotalPriceString(vehicle.CheckInTime, currentTime, pricePerHour);
-            vehicle.TimeParked = TimeParked(vehicle.CheckInTime, currentTime);
+            vehicle.TimeParked = TimeParkedLongString(vehicle.CheckInTime, currentTime);
 
             return View(vehicle);
         }
@@ -280,7 +286,7 @@ namespace GarageV2.Controllers
 
         receiptVehicle.PricePerHour = string.Format("{0:F2} kr", pricePerHour);
             receiptVehicle.TotalPrice = TotalPriceString(receiptVehicle.CheckInTime, receiptVehicle.CheckOutTime, pricePerHour);
-            receiptVehicle.TimeParked = TimeParked(receiptVehicle.CheckInTime, receiptVehicle.CheckOutTime);
+            receiptVehicle.TimeParked = TimeParkedLongString(receiptVehicle.CheckInTime, receiptVehicle.CheckOutTime);
 
             return View(receiptVehicle);
         }
@@ -304,9 +310,14 @@ namespace GarageV2.Controllers
             return startedHours * pricePerHour;
         }
 
-        private string TimeParked(DateTime checkInTime, DateTime checkOutTime)
+        private TimeSpan TimeParked(DateTime checkInTime, DateTime checkOutTime)
         {
-            var timeParked = checkOutTime - checkInTime;
+            return  checkOutTime - checkInTime;
+        }
+
+        private string TimeParkedLongString(DateTime checkInTime, DateTime checkOutTime)
+        {
+            var timeParked = TimeParked(checkInTime,checkOutTime);
             string timeParkedString = "";
             if (timeParked.Days == 1) timeParkedString += timeParked.ToString($"%d") + " dag ";
             if (timeParked.Days > 1) timeParkedString += timeParked.ToString($"%d") + " dagar ";
@@ -316,6 +327,17 @@ namespace GarageV2.Controllers
             if (timeParked.Minutes > 1) timeParkedString += timeParked.ToString($"%m") + " minuter ";
             if (timeParked.Seconds == 1) timeParkedString += timeParked.ToString($"%s") + " sekund ";
             if (timeParked.Seconds > 1) timeParkedString += timeParked.ToString($"%s") + " sekunder ";
+            return timeParkedString;
+        }
+
+        private string TimeParkedShortString(DateTime checkInTime, DateTime checkOutTime)
+        {
+            var timeParked = TimeParked(checkInTime, checkOutTime);
+            string timeParkedString = "";
+            if (timeParked.Days > 0) timeParkedString += timeParked.ToString($"%d") + "d ";
+            if (timeParked.Hours > 0) timeParkedString += timeParked.ToString($"%h") + "t ";
+            if (timeParked.Minutes > 0) timeParkedString += timeParked.ToString($"%m") + "m ";
+            if (timeParked.Seconds > 0) timeParkedString += timeParked.ToString($"%s") + "s ";
             return timeParkedString;
         }
         #endregion

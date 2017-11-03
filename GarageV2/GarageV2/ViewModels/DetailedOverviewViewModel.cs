@@ -39,14 +39,8 @@ namespace GarageV2.ViewModels
 
         [Display(Name = "Utcheckad")]
         public Nullable<DateTime> CheckOutTime { get; set; }
-
+        
         [Display(Name = "Totalt pris")]
-        public double TotalPrice { get; set; }
-
-        [Display(Name = "Totalt pris")]
-        public string TotalPriceString
-        {
-            get { return string.Format("{0:F0} kr", TotalPrice); }
-        }      
+        public string TotalPrice { get; set; }
     }
 }
