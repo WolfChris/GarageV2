@@ -27,10 +27,11 @@ namespace GarageV2.Controllers
             var checkInViewModel = new ViewModels.CheckInViewModel();
             checkInViewModel.VehicleTypes = db.VehicleType.ToList().Select(v => new SelectListItem
             {
+                Selected = v.Id==3,
                 Value = v.Id.ToString(),
                 Text = v.Name
             });
-
+           
             return View(checkInViewModel);
         }
 
@@ -126,7 +127,7 @@ namespace GarageV2.Controllers
             ViewBag.AskForRegNo = false;
 
             ParkedVehicle vehicleDetail = db.ParkedVehicle.Include(c => c.Member).Include(c => c.VehicleType).FirstOrDefault(v => v.Id == id);
-            
+
 
             db.ParkedVehicle.Remove(vehicleDetail);
             db.SaveChanges();
@@ -249,7 +250,23 @@ namespace GarageV2.Controllers
             {
                 return HttpNotFound();
             }
-            return View(parkedVehicle);
+
+            var editViewModel = new ViewModels.EditViewModel(parkedVehicle);
+            editViewModel.VehicleTypes = db.VehicleType.ToList().Select(v => new SelectListItem
+            {
+                Selected = (v.Id == parkedVehicle.VehicleTypeId),
+                Value = v.Id.ToString(),
+                Text = v.Name
+            });
+
+            editViewModel.Members = db.Member.ToList().Select(v => new SelectListItem
+            {
+                Selected = (v.Id == parkedVehicle.MemberId),
+                Value = v.Id.ToString(),
+                Text = v.FullName
+            });
+
+            return View(editViewModel);
         }
 
         [HttpPost, ActionName("Edit")]
@@ -262,13 +279,13 @@ namespace GarageV2.Controllers
             }
             var vehicleToUpdate = db.ParkedVehicle.Find(id);
             if (TryUpdateModel(vehicleToUpdate, "",
-               new string[] { "Id", "Type", "RegNo", "Color", "Brand", "Model", "NumberOfWheels" }))
+               new string[] { "Id", "VehicleTypeId", "MemberId", "RegNo", "Color", "Brand", "Model", "NumberOfWheels" }))
             {
                 try
                 {
                     db.SaveChanges();
-
-                    return RedirectToAction("Index");
+                    var detailViewModel = new ViewModels.DetailsViewModel(vehicleToUpdate);
+                    return View("Details", detailViewModel);
                 }
                 catch (DataException /* dex */)
                 {
@@ -338,7 +355,7 @@ namespace GarageV2.Controllers
         {
             var timeParked = TimeParked(checkInTime, checkOutTime);
             string timeParkedString = "";
-            if ((timeParked.Days+timeParked.Hours) > 0) timeParkedString += timeParked.Days*24+timeParked.Hours + "t ";
+            if ((timeParked.Days + timeParked.Hours) > 0) timeParkedString += timeParked.Days * 24 + timeParked.Hours + "t ";
             if (timeParked.Minutes > 0) timeParkedString += timeParked.ToString($"%m") + "m ";
             if (timeParked.Seconds > 0) timeParkedString += timeParked.ToString($"%s") + "s ";
             return timeParkedString;

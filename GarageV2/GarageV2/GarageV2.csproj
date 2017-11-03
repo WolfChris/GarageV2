@@ -238,6 +238,7 @@
     <Compile Include="ViewModels\CheckInViewModel.cs" />
     <Compile Include="ViewModels\DetailedOverviewViewModel.cs" />
     <Compile Include="ViewModels\DetailsViewModel.cs" />
+    <Compile Include="ViewModels\EditViewModel.cs" />
     <Compile Include="ViewModels\OverviewViewModel.cs" />
     <Compile Include="ViewModels\ReceiptViewModel.cs" />
   </ItemGroup>
@@ -288,12 +289,12 @@
     <Content Include="Views\ParkedVehicles\Overview.cshtml" />
     <Content Include="Views\ParkedVehicles\CheckOut.cshtml" />
     <Content Include="Views\ParkedVehicles\Receipt.cshtml" />
+    <Content Include="Views\ParkedVehicles\DetailedOverview.cshtml" />
     <Content Include="Views\TmpParkedVehicles\Create.cshtml" />
     <Content Include="Views\TmpParkedVehicles\Delete.cshtml" />
     <Content Include="Views\TmpParkedVehicles\Details.cshtml" />
     <Content Include="Views\TmpParkedVehicles\Edit.cshtml" />
     <Content Include="Views\TmpParkedVehicles\Index.cshtml" />
-    <Content Include="Views\ParkedVehicles\DetailedOverview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
