@@ -13,9 +13,44 @@ namespace GarageV2.Controllers
         private ParkedVehicleContext db = new ParkedVehicleContext();
 
         // GET: Members
-        public ActionResult Index()
+        public ActionResult Index(string searchBy, string search)
         {
-            return View(db.Member.ToList());
+            var members = db.Member.ToList();
+            if (searchBy == "FirstName")
+            {
+                var mem = members.Where(m => m.LastName == search)
+                .Select(m => new GarageV2.ViewModels.MemberOverviewViewModel
+                {
+                    Id = m.Id,
+                    FirstName = m.FirstName,
+                    LastName = m.LastName
+                })
+                .ToList();
+                return View(mem);
+                //return View(db.Member.Where(m => m.FirstName.StartsWith(search)).ToList());
+            }
+            if (searchBy == "LastName")
+            {
+                var mem = members.Where(m => m.LastName == search)
+                .Select(m => new GarageV2.ViewModels.MemberOverviewViewModel
+                {
+                    Id = m.Id,
+                    FirstName = m.FirstName,
+                    LastName = m.LastName
+                })
+                .ToList();
+                return View(mem);
+                //return View(db.Member.Where(m => m.LastName.StartsWith(search)).ToList());
+            }
+            var member = members
+                .Select(m => new GarageV2.ViewModels.MemberOverviewViewModel
+                {
+                    Id = m.Id,
+                    FirstName = m.FirstName,
+                    LastName = m.LastName
+                })
+                .ToList();
+            return View(member);
         }
 
         // GET: Members/Details/5

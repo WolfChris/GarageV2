@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GarageV2.Models.Member>
+﻿@model IEnumerable<GarageV2.ViewModels.MemberOverviewViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -6,7 +6,7 @@
 
 <h2>Index</h2>
 <p>
-    @using (Html.BeginForm("MemberOverview", "Members", FormMethod.Get))
+    @using (Html.BeginForm("Index", "Members", FormMethod.Get))
     {
         <label class="control-label col-md-1">S&ouml;k via: </label>
         @Html.RadioButton("searchBy", "FirstName", true) <text>F&ouml;rnamn</text><br />
@@ -32,24 +32,37 @@
         </th>
         <th></th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @if (Model.Count() == 0)
+    {
+        <tr>
+            <td colspan="2">
+                Inga medlemmar kan visas | Din s&ouml;kning &auml;r inkorrekt
+                <br />
+                @Html.ActionLink("Visa alla parkerade fordon", "Index")
+            </td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    }
 
 </table>
