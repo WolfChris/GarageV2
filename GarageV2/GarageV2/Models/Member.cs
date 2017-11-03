@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace GarageV2.Models
 {
     public class Member
     {
-        public int Id { get; set; }
-
         [Display(Name = "Medlemsnummer")]
-        public int MemberNo { get; set; }
+        public int Id { get; set; }
         
         [Display(Name = "Förnamn")]
         public string FirstName { get; set; }

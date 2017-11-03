@@ -1,0 +1,55 @@
+﻿@model IEnumerable<GarageV2.Models.Member>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<p>
+    @using (Html.BeginForm("MemberOverview", "Members", FormMethod.Get))
+    {
+        <label class="control-label col-md-1">S&ouml;k via: </label>
+        @Html.RadioButton("searchBy", "FirstName", true) <text>F&ouml;rnamn</text><br />
+        @Html.RadioButton("searchBy", "LastName") <text>Efternamn</text>
+        @Html.TextBox("search", "", new { @class = "form-control" }) <input type="submit" value="Sök" class="btn btn-default" />
+        @*@Html.EditorFor(model => model.RegNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ange registreringsnummer"} })*@
+    }
+</p>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
