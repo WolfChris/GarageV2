@@ -338,8 +338,7 @@ namespace GarageV2.Controllers
         {
             var timeParked = TimeParked(checkInTime, checkOutTime);
             string timeParkedString = "";
-            if (timeParked.Days > 0) timeParkedString += timeParked.ToString($"%d") + "d ";
-            if (timeParked.Hours > 0) timeParkedString += timeParked.ToString($"%h") + "t ";
+            if ((timeParked.Days+timeParked.Hours) > 0) timeParkedString += timeParked.Days*24+timeParked.Hours + "t ";
             if (timeParked.Minutes > 0) timeParkedString += timeParked.ToString($"%m") + "m ";
             if (timeParked.Seconds > 0) timeParkedString += timeParked.ToString($"%s") + "s ";
             return timeParkedString;
