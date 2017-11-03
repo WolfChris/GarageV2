@@ -16,8 +16,6 @@ namespace GarageV2.Migrations
         protected override void Seed(GarageV2.DataAccessLayer.ParkedVehicleContext context)
         {
             var members = new[] {
-            //context.Member.AddOrUpdate(
-                //m => v.MemberNo,
                 new Models.Member { FirstName = "Bill", LastName = "Hickock", MemberNo = 1 },
                 new Models.Member { FirstName = "John", LastName = "Alkas Yousef", MemberNo = 2 },
                 new Models.Member { FirstName = "Chris", LastName = "Wolf", MemberNo = 3 },
@@ -42,11 +40,60 @@ namespace GarageV2.Migrations
 
             context.ParkedVehicle.AddOrUpdate(
                 p => p.RegNo,
-                new Models.ParkedVehicle { RegNo = "ABC123", VehicleTypeId = vehicleTypes[0].Id, MemberId = members[0].Id, CheckInTime=DateTime.Now.Add(new TimeSpan(-36,0,0))},
-                new Models.ParkedVehicle { RegNo = "AWS111", VehicleTypeId = vehicleTypes[2].Id, MemberId = members[1].Id, CheckInTime = DateTime.Now.Add(new TimeSpan(-36, 0, 0)) },
-                new Models.ParkedVehicle { RegNo = "CDE123", VehicleTypeId = vehicleTypes[1].Id, MemberId = members[2].Id, CheckInTime = DateTime.Now.Add(new TimeSpan(-1, -10, -25)) },
-                new Models.ParkedVehicle { RegNo = "ABC456", VehicleTypeId = vehicleTypes[4].Id, MemberId = members[3].Id, CheckInTime = DateTime.Now.Add(new TimeSpan(0,-1, -59)) },
-                new Models.ParkedVehicle { RegNo = "CDE456", VehicleTypeId = vehicleTypes[3].Id, MemberId = members[4].Id, CheckInTime = DateTime.Now }
+                new Models.ParkedVehicle {
+                    RegNo = "ABC123",
+                    Brand = "Volvo",
+                    Model = "101",
+                    Color = "Vit",
+                    NumberOfWheels = 3,
+                    VehicleTypeId = vehicleTypes[0].Id,
+                    MemberId = members[0].Id,
+                    CheckInTime = new DateTime(2017, 11, 2, 8, 30, 52)
+                },
+                new Models.ParkedVehicle
+                {
+                    RegNo = "AWS111",
+                    Brand = "Concorde",
+                    Model = "740",
+                    Color = "Red",
+                    NumberOfWheels = 4,
+                    VehicleTypeId = vehicleTypes[2].Id,
+                    MemberId = members[1].Id,
+                    CheckInTime = new DateTime(2017, 11, 2, 8, 30, 52)
+                },
+                new Models.ParkedVehicle
+                {
+                    RegNo = "CDE123",
+                    Brand = "Volvo",
+                    Model = "9900",
+                    Color = "Vit",
+                    NumberOfWheels = 6,
+                    VehicleTypeId = vehicleTypes[1].Id,
+                    MemberId = members[2].Id,
+                    CheckInTime = new DateTime(2017, 11, 3, 10, 14, 00)
+                },
+                new Models.ParkedVehicle
+                {
+                    RegNo = "EFG123",
+                    Brand = "Yamaha",
+                    Model = "YS125",
+                    Color = "Röd",
+                    NumberOfWheels = 2,
+                    VehicleTypeId = vehicleTypes[4].Id,
+                    MemberId = members[3].Id,
+                    CheckInTime = DateTime.Now
+                },
+                new Models.ParkedVehicle
+                {
+                    RegNo = "CDE456",
+                    Brand = "Yamarin",
+                    Model = "Cross 60 Cabin ",
+                    Color = "Grå",
+                    NumberOfWheels = 0,
+                    VehicleTypeId = vehicleTypes[3].Id,
+                    MemberId = members[4].Id,
+                    CheckInTime = new DateTime(2016, 10, 30, 9, 35, 00)
+                }
             );
 
             context.Garage.AddOrUpdate(

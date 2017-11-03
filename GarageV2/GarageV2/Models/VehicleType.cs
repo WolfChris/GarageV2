@@ -10,6 +10,7 @@ namespace GarageV2.Models
     {
         public int Id { get; set; }
         
+        [Display(Name="Fordonstyp")]
         public String Name { get; set; }
     }
 }

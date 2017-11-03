@@ -10,11 +10,14 @@ namespace GarageV2.ViewModels
     {
         public int Id { get; set; }
 
-        [Display(Name = "Typ")]
+        [Display(Name = "Fordonstyp")]
         public string Type { get; set; }
 
         [Display(Name = "Reg nr")]
         public string RegNo { get; set; }
+
+        [Display(Name = "Ägare")]
+        public string Owner { get; set; }
 
         [Display(Name = "Färg")]
         public string Color { get; set; }
@@ -34,7 +37,7 @@ namespace GarageV2.ViewModels
         [Display(Name = "Parkerad tid")]
         public string TimeParked { get; set; }
 
-        [Display(Name = "Beräknat pris")]
+        [Display(Name = "Totalt pris")]
         public string TotalPrice { get; set; }
 
         public DetailsViewModel(Models.ParkedVehicle vehicle)
@@ -42,6 +45,7 @@ namespace GarageV2.ViewModels
             Id = vehicle.Id;
             RegNo = vehicle.RegNo;
             Type = vehicle.VehicleType.Name;
+            Owner = vehicle.Member.FullName;
             Color = vehicle.Color;
             Brand = vehicle.Brand;
             Model = vehicle.Model;

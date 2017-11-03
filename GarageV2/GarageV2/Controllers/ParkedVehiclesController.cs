@@ -95,10 +95,12 @@ namespace GarageV2.Controllers
             ViewBag.checkedOut = false;
             return View("CheckOut");
         }
-        
+
         public ActionResult ConfirmCheckOut(int id)
         {
-            ParkedVehicle vehicleDetail = db.ParkedVehicle.FirstOrDefault(v => v.Id == id);               
+            ParkedVehicle vehicleDetail = db.ParkedVehicle.FirstOrDefault(v => v.Id == id);
+            double pricePerHour = db.Garage.FirstOrDefault().PricePerHour;
+            vehicleDetail.TotalPrice = TotalPrice(vehicleDetail.CheckInTime, DateTime.Now, pricePerHour);
 
             if (vehicleDetail == null)
             {
@@ -109,7 +111,7 @@ namespace GarageV2.Controllers
                 ViewBag.AskForRegNo = false;
                 ViewBag.ConfirmedCheckOut = true;
                 ViewBag.checkedOut = false;
-                return View("CheckOut",vehicleDetail);
+                return View("CheckOut", vehicleDetail);
             }
             ViewBag.AskForRegNo = true;
             ViewBag.ConfirmedCheckOut = false;
@@ -123,7 +125,9 @@ namespace GarageV2.Controllers
         {
             ViewBag.AskForRegNo = false;
 
-            ParkedVehicle vehicleDetail = db.ParkedVehicle.FirstOrDefault(v => v.Id == id);
+            ParkedVehicle vehicleDetail = db.ParkedVehicle.Include(c => c.Member).Include(c => c.VehicleType).FirstOrDefault(v => v.Id == id);
+            
+
             db.ParkedVehicle.Remove(vehicleDetail);
             db.SaveChanges();
             vehicleDetail.CheckOutTime = DateTime.Now;
@@ -151,7 +155,7 @@ namespace GarageV2.Controllers
                     TimeParked = TimeParkedShortString(v.CheckInTime, DateTime.Now),
                     CheckInTime = v.CheckInTime,
                     CheckOutTime = v.CheckOutTime,
-                    Color=v.Color,
+                    Color = v.Color,
                     Brand = v.Brand,
                     Model = v.Model,
                     NumberOfWheels = v.NumberOfWheels,
@@ -162,7 +166,7 @@ namespace GarageV2.Controllers
             return View(vehicles);
         }
 
-            public ActionResult Overview(string searchBy, string search)
+        public ActionResult Overview(string searchBy, string search)
         {
             var dbParkedVehicles = db.ParkedVehicle;
             List<ParkedVehicle> parkedVehicles = dbParkedVehicles.ToList();
@@ -282,9 +286,9 @@ namespace GarageV2.Controllers
         public ActionResult Receipt(ParkedVehicle checkedOutVehicle)
         {
             var receiptVehicle = new ViewModels.ReceiptViewModel(checkedOutVehicle);
-            double  pricePerHour = db.Garage.FirstOrDefault().PricePerHour;
+            double pricePerHour = db.Garage.FirstOrDefault().PricePerHour;
 
-        receiptVehicle.PricePerHour = string.Format("{0:F2} kr", pricePerHour);
+            receiptVehicle.PricePerHour = string.Format("{0:F2} kr", pricePerHour);
             receiptVehicle.TotalPrice = TotalPriceString(receiptVehicle.CheckInTime, receiptVehicle.CheckOutTime, pricePerHour);
             receiptVehicle.TimeParked = TimeParkedLongString(receiptVehicle.CheckInTime, receiptVehicle.CheckOutTime);
 
@@ -312,12 +316,12 @@ namespace GarageV2.Controllers
 
         private TimeSpan TimeParked(DateTime checkInTime, DateTime checkOutTime)
         {
-            return  checkOutTime - checkInTime;
+            return checkOutTime - checkInTime;
         }
 
         private string TimeParkedLongString(DateTime checkInTime, DateTime checkOutTime)
         {
-            var timeParked = TimeParked(checkInTime,checkOutTime);
+            var timeParked = TimeParked(checkInTime, checkOutTime);
             string timeParkedString = "";
             if (timeParked.Days == 1) timeParkedString += timeParked.ToString($"%d") + " dag ";
             if (timeParked.Days > 1) timeParkedString += timeParked.ToString($"%d") + " dagar ";

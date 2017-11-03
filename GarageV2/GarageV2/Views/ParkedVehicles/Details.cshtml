@@ -15,6 +15,9 @@
         <dt>            @Html.DisplayNameFor(model => model.RegNo)        </dt>
         <dd>            @Html.DisplayFor(model => model.RegNo)        </dd>
 
+        <dt>            @Html.DisplayNameFor(model => model.Owner)        </dt>
+        <dd>            @Html.DisplayFor(model => model.Owner)        </dd>
+
         <dt>            @Html.DisplayNameFor(model => model.Color)        </dt>
         <dd>            @Html.DisplayFor(model => model.Color)        </dd>
 
@@ -39,7 +42,7 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Checka ut", "CheckOut", new { id = Model.Id }) |
+    @Html.ActionLink("Checka ut", "ConfirmCheckOut", new { id = Model.Id }) |
     @Html.ActionLink("Ändra", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Tillbaka till lista", "Overview")
 </p>

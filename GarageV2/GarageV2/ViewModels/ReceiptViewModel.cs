@@ -13,6 +13,9 @@ namespace GarageV2.ViewModels
         [Display(Name = "Reg nr")]
         public string RegNo { get; set; }
 
+        [Display(Name = "Ägare")]
+        public string Owner { get; set; }
+
         [Display(Name = "Incheckad")]
         public DateTime CheckInTime { get; set; }
 
@@ -31,6 +34,7 @@ namespace GarageV2.ViewModels
         public ReceiptViewModel(Models.ParkedVehicle vehicle)
         {
             RegNo = vehicle.RegNo;
+            Owner = vehicle.Member.FullName;
             CheckInTime = vehicle.CheckInTime;
             CheckOutTime = (DateTime)vehicle.CheckOutTime;
         }
