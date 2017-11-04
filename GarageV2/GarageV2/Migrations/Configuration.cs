@@ -1,10 +1,7 @@
 namespace GarageV2.Migrations
 {
     using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
-    using GarageV2.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<GarageV2.DataAccessLayer.ParkedVehicleContext>
     {
@@ -16,14 +13,16 @@ namespace GarageV2.Migrations
         protected override void Seed(GarageV2.DataAccessLayer.ParkedVehicleContext context)
         {
             var members = new[] {
-                new Models.Member { FirstName = "Bill", LastName = "Hickock", MemberNo = 1 },
-                new Models.Member { FirstName = "John", LastName = "Alkas Yousef", MemberNo = 2 },
-                new Models.Member { FirstName = "Chris", LastName = "Wolf", MemberNo = 3 },
-                new Models.Member { FirstName = "Petra", LastName = "Lindell", MemberNo = 4 },
-                new Models.Member { FirstName = "Joe", LastName = "Blow", MemberNo = 5 }
+            //context.Member.AddOrUpdate(
+                //m => v.MemberNo,
+                new Models.Member { FirstName = "Bill", LastName = "Hickock" },
+                new Models.Member { FirstName = "John", LastName = "Alkas Yousef" },
+                new Models.Member { FirstName = "Chris", LastName = "Wolf" },
+                new Models.Member { FirstName = "Petra", LastName = "Lindell" },
+                new Models.Member { FirstName = "Joe", LastName = "Blow"}
             };
 
-            context.Member.AddOrUpdate(m => new { m.FirstName, m.LastName, m.MemberNo }, members);
+            context.Member.AddOrUpdate(m => new { m.FirstName, m.LastName }, members);
             context.SaveChanges();
 
             var vehicleTypes = new[]

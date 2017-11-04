@@ -158,6 +158,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\ParkedVehiclesController.cs" />
     <Compile Include="Controllers\TmpParkedVehiclesController.cs" />
     <Compile Include="DataAccessLayer\ParkedVehicleContext.cs" />
@@ -228,6 +229,10 @@
     <Compile Include="Migrations\201711021517282_CheckInViewModel.Designer.cs">
       <DependentUpon>201711021517282_CheckInViewModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711021428255_CreateMember.cs" />
+    <Compile Include="Migrations\201711021428255_CreateMember.Designer.cs">
+      <DependentUpon>201711021428255_CreateMember.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Garage.cs" />
     <Compile Include="Models\Member.cs" />
@@ -239,6 +244,7 @@
     <Compile Include="ViewModels\DetailedOverviewViewModel.cs" />
     <Compile Include="ViewModels\DetailsViewModel.cs" />
     <Compile Include="ViewModels\EditViewModel.cs" />
+    <Compile Include="ViewModels\MemberOverviewViewModel.cs" />
     <Compile Include="ViewModels\OverviewViewModel.cs" />
     <Compile Include="ViewModels\ReceiptViewModel.cs" />
   </ItemGroup>
@@ -295,6 +301,12 @@
     <Content Include="Views\TmpParkedVehicles\Details.cshtml" />
     <Content Include="Views\TmpParkedVehicles\Edit.cshtml" />
     <Content Include="Views\TmpParkedVehicles\Index.cshtml" />
+    <Content Include="Views\Members\Create.cshtml" />
+    <Content Include="Views\Members\Delete.cshtml" />
+    <Content Include="Views\Members\Details.cshtml" />
+    <Content Include="Views\Members\Edit.cshtml" />
+    <Content Include="Views\Members\Index.cshtml" />
+    <Content Include="Views\Members\CreateDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -355,6 +367,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711021517282_CheckInViewModel.resx">
       <DependentUpon>201711021517282_CheckInViewModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711021428255_CreateMember.resx">
+      <DependentUpon>201711021428255_CreateMember.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

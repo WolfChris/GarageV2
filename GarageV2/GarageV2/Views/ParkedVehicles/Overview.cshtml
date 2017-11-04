@@ -12,7 +12,7 @@
         <label class="control-label col-md-1">S&ouml;k via: </label>
         @Html.RadioButton("searchBy", "RegNo", true) <text>Registreringsnummer</text><br />
         @Html.RadioButton("searchBy", "Color") <text>F&auml;rg</text><br />
-        @Html.TextBox("search", "", new { htmlAttributes = new { @class = "form-control" } }) <input type="submit" value="Sök" class="btn btn-default" />
+        @Html.TextBox("search", "", new { @class = "form-control" }) <input type="submit" value="Sök" class="btn btn-default" />
         @*@Html.EditorFor(model => model.RegNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ange registreringsnummer"} })*@
     }
 </p>
