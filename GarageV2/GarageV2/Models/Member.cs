@@ -14,13 +14,14 @@ namespace GarageV2.Models
         [Display(Name = "Efternamn")]
         public string LastName { get; set; }
 
-        [Display(Name = "Namn")]
+        [Display(Name = "Medlem")]
         public string FullName {
             get {
                 return FirstName + " " + LastName;
             }
         }
 
+        [Display(Name = "Fordon")]
         public virtual ICollection<ParkedVehicle> ParkedVehicles { get; set; }
         
 

@@ -8,7 +8,7 @@
 
 <div>
     <hr />
-    <div style="float: left; margin-right: 20px;">
+    <div >
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.Id)
@@ -34,37 +34,45 @@
                 @Html.DisplayFor(model => model.LastName)
             </dd>
 
+            <dt></dt>
+            <dd>&nbsp;</dd>
+
+            <dt> @Html.DisplayNameFor(model => model.ParkedVehicles) </dt>
+            <dd>
+                <table border="0">
+                    @{
+                        int antalFordon = 1;
+                    }
+                    @foreach (var vehicle in Model.ParkedVehicles)
+                    {
+                        <tr>
+                            <td class="col-md-3">
+                                @antalFordon
+                            </td>
+                            <td class="col-md-3">
+                                @{
+                                    antalFordon++;
+                                }
+                                @Html.DisplayFor(v => vehicle.VehicleType.Name)
+                            </td>
+                            <td class="col-md-3">
+                                @Html.DisplayFor(v => vehicle.RegNo)
+                               @* @Html.ActionLink(enrollment.Student.FullName, "Details", "Students", new { id = enrollment.StudentId }, null)*@
+                            </td>
+                        </tr>
+                     }
+                </table>
+            </dd>
+
         </dl>
     </div>
-    <div style="float: left;">
-        <table border="0">
-            @{
-                int antalFordon = 1;
-            }
-            @foreach (var vehicle in Model.ParkedVehicles)
-            {
-                <tr>
-                    <td class="col-md-3 progress-bar-success" colspan="2">
-                        Fordon @antalFordon
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @{
-                            antalFordon++;
-                        }
-                        @Html.DisplayFor(v => vehicle.VehicleType.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(v => vehicle.RegNo)
-                    </td>
-                </tr>
-                            }
-        </table>
-    </div>
 </div>
-<p style="clear: both;">
+
+<div>
+    <br />
     @Html.ActionLink("Ändra", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Ta bort", "Delete", new { id = Model.Id }) |
+    @Html.ActionLink("Checka in fordon", "CheckIn", "ParkedVehicles", new { id = Model.Id }, null)
+    <br />
     @Html.ActionLink("Visa alla medlemmar", "Index")
-</p>
+</div>

@@ -1,31 +1,26 @@
-﻿using System;
+﻿using GarageV2.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using GarageV2.Models;
 
 namespace GarageV2.ViewModels
 {
-    public class EditViewModel 
+    public class CheckOutViewModel
     {
         public int Id { get; set; }
-
-        [Display(Name = "Fordonstyp Id")]
-        public int VehicleTypeId { get; set; }
-
-        [Display(Name = "Medlemsnummer")]
-        public int MemberId { get; set; }
 
         [Display(Name = "Fordonstyp")]
         public string VehicleType { get; set; }
 
-        [Display(Name = "Reg nr")]
-        public string RegNo { get; set; }
-
         [Display(Name = "Medlem")]
-        public string MemberName { get; set; }
+        public string Member { get; set; }
+
+        [Required]
+        [Display(Name = "Registreringsnummer")]
+        public string RegNo { get; set; }
 
         [Display(Name = "Färg")]
         public string Color { get; set; }
@@ -36,27 +31,34 @@ namespace GarageV2.ViewModels
         [Display(Name = "Modell")]
         public string Model { get; set; }
 
-        [Display(Name = "Antal Hjul")]
+        [Range(0, 12)]
+        [Display(Name = "Antal hjul")]
         public int NumberOfWheels { get; set; }
-        
-        public EditViewModel(Models.ParkedVehicle vehicle)
+
+        [Display(Name = "Incheckad")]
+        public DateTime CheckInTime { get; set; }
+
+        [Display(Name = "Utcheckad")]
+        public DateTime? CheckOutTime { get; set; }
+
+        [Display(Name = "Totalt pris")]
+        public string TotalPriceString { get; set; }
+
+        public CheckOutViewModel() { }
+
+        public CheckOutViewModel(ParkedVehicle vehicle)
         {
             Id = vehicle.Id;
             RegNo = vehicle.RegNo;
-            VehicleTypeId = vehicle.VehicleTypeId;
             VehicleType = vehicle.VehicleType.Name;
-            MemberId = vehicle.MemberId;
-            MemberName = vehicle.Member.FullName;
+            Member = vehicle.Member.FullName;
             Color = vehicle.Color;
             Brand = vehicle.Brand;
             Model = vehicle.Model;
             NumberOfWheels = vehicle.NumberOfWheels;
+            CheckInTime = vehicle.CheckInTime;
+            TotalPriceString = vehicle.TotalPriceString;
+            CheckOutTime = vehicle.CheckOutTime;
         }
-
-        public IEnumerable<SelectListItem> VehicleTypes { get; set; }
-
-        public IEnumerable<SelectListItem> Members { get; set; }
-        
-
     }
 }

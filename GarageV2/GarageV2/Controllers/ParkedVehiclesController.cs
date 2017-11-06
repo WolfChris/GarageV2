@@ -21,31 +21,41 @@ namespace GarageV2.Controllers
 
         #region CheckIn
 
-        public ActionResult CheckIn()
+        public ActionResult CheckIn(int? id)
         {
             var checkInViewModel = new ViewModels.CheckInViewModel();
+            checkInViewModel.Members = db.Member.ToList().Select(v => new SelectListItem
+            {
+                Selected = (v.Id == id),
+                Value = v.Id.ToString(),
+                Text = v.FullName
+            });
+
             checkInViewModel.VehicleTypes = db.VehicleType.ToList().Select(v => new SelectListItem
             {
-                Selected = v.Id==3,
                 Value = v.Id.ToString(),
                 Text = v.Name
             });
-           
+
+            if (id != null) { checkInViewModel.MemberId = (int)id; }
             return View(checkInViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CheckIn([Bind(Include = "Id,Type,RegNo,Color,Brand,Model,NumberOfWheels")] ParkedVehicle parkedVehicle)
+        public ActionResult CheckIn([Bind(Include = "Id,VehicleTypeId,MemberId,RegNo,Color,Brand,Model,NumberOfWheels")] ParkedVehicle newVehicle)
         {
             if (ModelState.IsValid)
             {
-                db.ParkedVehicle.Add(parkedVehicle);
+                db.ParkedVehicle.Add(newVehicle);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                var parkedVehicle = db.ParkedVehicle.Include(v => v.Member).Include(v => v.VehicleType).FirstOrDefault(v => v.Id == newVehicle.Id);
+
+                return View("CheckInConfirmed", parkedVehicle);
             }
 
-            return View(parkedVehicle);
+            return View(newVehicle);
         }
         #endregion
 
@@ -64,7 +74,8 @@ namespace GarageV2.Controllers
                 {
                     return HttpNotFound();
                 }
-                return View(vehicleDetail);
+                var checkOutViewModel = new ViewModels.CheckOutViewModel(vehicleDetail);
+                return View(checkOutViewModel);
             }
             return View();
         }
@@ -111,7 +122,9 @@ namespace GarageV2.Controllers
                 ViewBag.AskForRegNo = false;
                 ViewBag.ConfirmedCheckOut = true;
                 ViewBag.checkedOut = false;
-                return View("CheckOut", vehicleDetail);
+
+                var checkOutViewModel = new ViewModels.CheckOutViewModel(vehicleDetail);
+                return View("CheckOut", checkOutViewModel);
             }
             ViewBag.AskForRegNo = true;
             ViewBag.ConfirmedCheckOut = false;
@@ -125,16 +138,18 @@ namespace GarageV2.Controllers
         {
             ViewBag.AskForRegNo = false;
 
-            ParkedVehicle vehicleDetail = db.ParkedVehicle.Include(c => c.Member).Include(c => c.VehicleType).FirstOrDefault(v => v.Id == id);
+            ParkedVehicle vehicleDetail = db.ParkedVehicle.FirstOrDefault(v => v.Id == id);
 
-
-            db.ParkedVehicle.Remove(vehicleDetail);
-            db.SaveChanges();
             vehicleDetail.CheckOutTime = DateTime.Now;
             double pricePerHour = db.Garage.FirstOrDefault().PricePerHour;
             vehicleDetail.TotalPrice = TotalPrice(vehicleDetail.CheckInTime, (DateTime)vehicleDetail.CheckOutTime, pricePerHour);
+            var checkOutViewModel = new ViewModels.CheckOutViewModel(vehicleDetail);
+
+            db.ParkedVehicle.Remove(vehicleDetail);
+            db.SaveChanges();
+
             ViewBag.checkedOut = true;
-            return View("CheckOut", vehicleDetail);
+            return View("CheckOut", checkOutViewModel);
         }
 
         #endregion
@@ -164,14 +179,21 @@ namespace GarageV2.Controllers
 
             if (searchBy == "RegNo")
             {
-                var vehiclesRegNo = parkedVehicles.Where(v => v.RegNo.ToLower() == search.ToLower()).
-                Select(v => new GarageV2.ViewModels.OverviewViewModel
+                var vehiclesRegNo = parkedVehicles.Where(v => v.RegNo.ToLower() == search.ToLower())
+                .Select(v => new GarageV2.ViewModels.DetailedOverviewViewModel
                 {
                     Id = v.Id,
                     RegNo = v.RegNo,
                     VehicleType = v.VehicleType.Name,
                     Owner = v.Member.FullName,
-                    TimeParked = TimeParkedLongString(v.CheckInTime, DateTime.Now)
+                    TimeParked = TimeParkedShortString(v.CheckInTime, DateTime.Now),
+                    CheckInTime = v.CheckInTime,
+                    CheckOutTime = v.CheckOutTime,
+                    Color = v.Color,
+                    Brand = v.Brand,
+                    Model = v.Model,
+                    NumberOfWheels = v.NumberOfWheels,
+                    TotalPrice = TotalPriceString(v.CheckInTime, DateTime.Now, db.Garage.FirstOrDefault().PricePerHour)
                 })
                 .ToList();
 
@@ -180,27 +202,42 @@ namespace GarageV2.Controllers
 
             if (searchBy == "Color")
             {
-                var vehiclesRegNo = parkedVehicles.Where(v => v.Color.ToLower() == search.ToLower()).
-                Select(v => new GarageV2.ViewModels.OverviewViewModel
+                var vehiclesColor = parkedVehicles.Where(v => (v.Color ?? "").
+                                                        ToLower() == search.ToLower())
+                .Select(v => new GarageV2.ViewModels.DetailedOverviewViewModel
                 {
                     Id = v.Id,
                     RegNo = v.RegNo,
                     VehicleType = v.VehicleType.Name,
                     Owner = v.Member.FullName,
-                    TimeParked = TimeParkedLongString(v.CheckInTime, DateTime.Now)
+                    TimeParked = TimeParkedShortString(v.CheckInTime, DateTime.Now),
+                    CheckInTime = v.CheckInTime,
+                    CheckOutTime = v.CheckOutTime,
+                    Color = v.Color,
+                    Brand = v.Brand,
+                    Model = v.Model,
+                    NumberOfWheels = v.NumberOfWheels,
+                    TotalPrice = TotalPriceString(v.CheckInTime, DateTime.Now, db.Garage.FirstOrDefault().PricePerHour)
                 })
                 .ToList();
 
-                return View(vehiclesRegNo);
+                return View(vehiclesColor);
             }
             var vehicles = parkedVehicles
-                .Select(v => new GarageV2.ViewModels.OverviewViewModel
+                .Select(v => new GarageV2.ViewModels.DetailedOverviewViewModel
                 {
                     Id = v.Id,
                     RegNo = v.RegNo,
                     VehicleType = v.VehicleType.Name,
                     Owner = v.Member.FullName,
-                    TimeParked = TimeParkedLongString(v.CheckInTime, DateTime.Now)
+                    TimeParked = TimeParkedShortString(v.CheckInTime, DateTime.Now),
+                    CheckInTime = v.CheckInTime,
+                    CheckOutTime = v.CheckOutTime,
+                    Color = v.Color,
+                    Brand = v.Brand,
+                    Model = v.Model,
+                    NumberOfWheels = v.NumberOfWheels,
+                    TotalPrice = TotalPriceString(v.CheckInTime, DateTime.Now, db.Garage.FirstOrDefault().PricePerHour)
                 })
                 .ToList();
 
@@ -266,9 +303,10 @@ namespace GarageV2.Controllers
                 return View(vehiclesRegNo);
             }
 
-            if (searchBy == "Color")
+            if (searchBy == "Owner")
             {
-                var vehiclesRegNo = parkedVehicles.Where(v => v.Color == search).
+                var vehiclesColor = parkedVehicles.Where(v => (v.Member.FullName ?? "").
+                                                        ToLower() ==  search.ToLower()).
                 Select(v => new GarageV2.ViewModels.OverviewViewModel
                 {
                     Id = v.Id,
@@ -279,7 +317,7 @@ namespace GarageV2.Controllers
                 })
                 .ToList();
 
-                return View(vehiclesRegNo);
+                return View(vehiclesColor);
             }
             var vehicles = parkedVehicles
                 .Select(v => new GarageV2.ViewModels.OverviewViewModel
@@ -378,7 +416,7 @@ namespace GarageV2.Controllers
 
         #region Receipt
 
-        public ActionResult Receipt(ParkedVehicle checkedOutVehicle)
+        public ActionResult Receipt(ViewModels.CheckOutViewModel checkedOutVehicle)
         {
             var receiptVehicle = new ViewModels.ReceiptViewModel(checkedOutVehicle);
             double pricePerHour = db.Garage.FirstOrDefault().PricePerHour;
