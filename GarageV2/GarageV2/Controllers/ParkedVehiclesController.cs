@@ -146,6 +146,22 @@ namespace GarageV2.Controllers
             var dbParkedVehicles = db.ParkedVehicle;
             List<ParkedVehicle> parkedVehicles = dbParkedVehicles.ToList();
 
+            if (searchBy == "VehicleType")
+            {
+                var vehicleType = parkedVehicles.Where(v => v.VehicleType.Name.ToLower().Contains(search.ToLower())).
+                Select(v => new GarageV2.ViewModels.OverviewViewModel
+                {
+                    Id = v.Id,
+                    RegNo = v.RegNo,
+                    VehicleType = v.VehicleType.Name,
+                    Owner = v.Member.FullName,
+                    TimeParked = TimeParkedLongString(v.CheckInTime, DateTime.Now)
+                })
+                .ToList();
+
+                return View(vehicleType);
+            }
+
             if (searchBy == "RegNo")
             {
                 var vehiclesRegNo = parkedVehicles.Where(v => v.RegNo.ToLower() == search.ToLower()).
@@ -217,6 +233,22 @@ namespace GarageV2.Controllers
         {
             var dbParkedVehicles = db.ParkedVehicle;
             List<ParkedVehicle> parkedVehicles = dbParkedVehicles.ToList();
+
+            if (searchBy == "VehicleType")
+            {
+                var vehicleType = parkedVehicles.Where(v => v.VehicleType.Name.ToLower().Contains(search.ToLower())).
+                Select(v => new GarageV2.ViewModels.OverviewViewModel
+                {
+                    Id = v.Id,
+                    RegNo = v.RegNo,
+                    VehicleType = v.VehicleType.Name,
+                    Owner = v.Member.FullName,
+                    TimeParked = TimeParkedLongString(v.CheckInTime, DateTime.Now)
+                })
+                .ToList();
+
+                return View(vehicleType);
+            }
 
             if (searchBy == "RegNo")
             {
