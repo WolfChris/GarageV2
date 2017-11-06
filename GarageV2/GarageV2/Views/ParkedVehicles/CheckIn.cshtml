@@ -15,11 +15,23 @@
         <h4>Parkera Fordon</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Member.FullName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.DropDownListFor(model => model.MemberId, Model.Members,  htmlAttributes: new { @class = "form-control" } )
+                @Html.ValidationMessageFor(model => model.Member.FullName)
+                @Html.ValidationMessageFor(model => model.Member.FullName, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.VehicleType.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 
-                @Html.DropDownListFor(model => model.VehicleType, Model.VehicleTypes, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.VehicleTypeId, Model.VehicleTypes, htmlAttributes : new { @class = "form-control" } )
                 @Html.ValidationMessageFor(model => model.VehicleType.Name)
                 @Html.ValidationMessageFor(model => model.VehicleType.Name, "", new { @class = "text-danger" })
 

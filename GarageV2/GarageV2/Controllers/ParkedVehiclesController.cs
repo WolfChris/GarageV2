@@ -21,12 +21,19 @@ namespace GarageV2.Controllers
 
         #region CheckIn
 
-        public ActionResult CheckIn()
+        public ActionResult CheckIn(int? memberId)
         {
             var checkInViewModel = new ViewModels.CheckInViewModel();
+            checkInViewModel.Members = db.Member.ToList().Select(v => new SelectListItem
+            {
+                Selected = v.Id == memberId,
+                Value = v.Id.ToString(),
+                Text = v.FullName
+            });
+
             checkInViewModel.VehicleTypes = db.VehicleType.ToList().Select(v => new SelectListItem
             {
-                Selected = v.Id==3,
+                //Selected = v.Id==3,
                 Value = v.Id.ToString(),
                 Text = v.Name
             });
@@ -36,7 +43,7 @@ namespace GarageV2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CheckIn([Bind(Include = "Id,Type,RegNo,Color,Brand,Model,NumberOfWheels")] ParkedVehicle parkedVehicle)
+        public ActionResult CheckIn([Bind(Include = "Id,VehicleTypeId,MemberId,RegNo,Color,Brand,Model,NumberOfWheels")] ParkedVehicle parkedVehicle)
         {
             if (ModelState.IsValid)
             {

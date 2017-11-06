@@ -160,6 +160,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\ParkedVehiclesController.cs" />
+    <Compile Include="Controllers\TestParkedVehiclesController.cs" />
     <Compile Include="DataAccessLayer\ParkedVehicleContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -236,6 +237,10 @@
     <Compile Include="Migrations\201711060803272_MergeJohnDevelopment.Designer.cs">
       <DependentUpon>201711060803272_MergeJohnDevelopment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711061255414_changeCheckInViewModel.cs" />
+    <Compile Include="Migrations\201711061255414_changeCheckInViewModel.Designer.cs">
+      <DependentUpon>201711061255414_changeCheckInViewModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Garage.cs" />
     <Compile Include="Models\Member.cs" />
@@ -304,6 +309,11 @@
     <Content Include="Views\Members\Edit.cshtml" />
     <Content Include="Views\Members\Index.cshtml" />
     <Content Include="Views\Members\CreateDetails.cshtml" />
+    <Content Include="Views\TestParkedVehicles\Create.cshtml" />
+    <Content Include="Views\TestParkedVehicles\Delete.cshtml" />
+    <Content Include="Views\TestParkedVehicles\Details.cshtml" />
+    <Content Include="Views\TestParkedVehicles\Edit.cshtml" />
+    <Content Include="Views\TestParkedVehicles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -370,6 +380,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711060803272_MergeJohnDevelopment.resx">
       <DependentUpon>201711060803272_MergeJohnDevelopment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711061255414_changeCheckInViewModel.resx">
+      <DependentUpon>201711061255414_changeCheckInViewModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
