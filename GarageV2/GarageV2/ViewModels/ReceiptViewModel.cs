@@ -31,10 +31,10 @@ namespace GarageV2.ViewModels
         [Display(Name = "Pris per timme")]
         public string PricePerHour { get; set; }
 
-        public ReceiptViewModel(Models.ParkedVehicle vehicle)
+        public ReceiptViewModel(ViewModels.CheckOutViewModel vehicle)
         {
             RegNo = vehicle.RegNo;
-            Owner = vehicle.Member.FullName;
+            Owner = vehicle.Member;
             CheckInTime = vehicle.CheckInTime;
             CheckOutTime = (DateTime)vehicle.CheckOutTime;
         }

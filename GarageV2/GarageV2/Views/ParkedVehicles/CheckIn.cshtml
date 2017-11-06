@@ -23,7 +23,7 @@
                 @Html.DropDownListFor(model => model.MemberId, Model.Members,  htmlAttributes: new { @class = "form-control" } )
                 @Html.ValidationMessageFor(model => model.Member.FullName)
                 @Html.ValidationMessageFor(model => model.Member.FullName, "", new { @class = "text-danger" })
-
+                @Html.ActionLink("Registrera ny", "Create","Members")
             </div>
         </div>
 

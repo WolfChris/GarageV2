@@ -62,7 +62,8 @@
                 </td>
                 <td>
                     @Html.ActionLink("Ändra", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Visa", "Details", new { id = item.Id })
+                    @Html.ActionLink("Visa", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Checka in fordon", "CheckIn","ParkedVehicles", new { id = item.Id }, null)
                     
                 </td>
             </tr>

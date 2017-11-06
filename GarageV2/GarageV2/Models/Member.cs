@@ -21,6 +21,7 @@ namespace GarageV2.Models
             }
         }
 
+        [Display(Name = "Fordon")]
         public virtual ICollection<ParkedVehicle> ParkedVehicles { get; set; }
         
 
