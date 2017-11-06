@@ -56,8 +56,7 @@
                                 @Html.DisplayFor(v => vehicle.VehicleType.Name)
                             </td>
                             <td class="col-md-3">
-                                @Html.DisplayFor(v => vehicle.RegNo)
-                               @* @Html.ActionLink(enrollment.Student.FullName, "Details", "Students", new { id = enrollment.StudentId }, null)*@
+                                @Html.ActionLink(vehicle.RegNo, "Details", "ParkedVehicles", new { id = vehicle.Id }, null)
                             </td>
                         </tr>
                      }
