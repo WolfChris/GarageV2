@@ -160,7 +160,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\ParkedVehiclesController.cs" />
-    <Compile Include="Controllers\TmpParkedVehiclesController.cs" />
     <Compile Include="DataAccessLayer\ParkedVehicleContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -241,7 +240,6 @@
     <Compile Include="Models\Garage.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\VehicleType.cs" />
-    <Compile Include="Models\VehicleTypeEnum.cs" />
     <Compile Include="Models\ParkedVehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CheckInViewModel.cs" />
@@ -300,11 +298,6 @@
     <Content Include="Views\ParkedVehicles\CheckOut.cshtml" />
     <Content Include="Views\ParkedVehicles\Receipt.cshtml" />
     <Content Include="Views\ParkedVehicles\DetailedOverview.cshtml" />
-    <Content Include="Views\TmpParkedVehicles\Create.cshtml" />
-    <Content Include="Views\TmpParkedVehicles\Delete.cshtml" />
-    <Content Include="Views\TmpParkedVehicles\Details.cshtml" />
-    <Content Include="Views\TmpParkedVehicles\Edit.cshtml" />
-    <Content Include="Views\TmpParkedVehicles\Index.cshtml" />
     <Content Include="Views\Members\Create.cshtml" />
     <Content Include="Views\Members\Delete.cshtml" />
     <Content Include="Views\Members\Details.cshtml" />
