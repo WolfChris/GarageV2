@@ -39,5 +39,5 @@
 <p>
     @Html.ActionLink("Ändra", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Visa alla medlemmar", "Index") |  
-    @Html.ActionLink("Checka in fordon", "CheckIn", "ParkedVehicles")
+    @Html.ActionLink("Checka in fordon", "CheckIn", "ParkedVehicles", new { id = Model.Id },null)
 </p>
