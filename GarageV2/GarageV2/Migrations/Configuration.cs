@@ -73,6 +73,17 @@ namespace GarageV2.Migrations
                 },
                 new Models.ParkedVehicle
                 {
+                    RegNo = "TEL947",
+                    Brand = "Saab",
+                    Model = "9-5",
+                    Color = "Silver",
+                    NumberOfWheels = 4,
+                    VehicleTypeId = vehicleTypes[0].Id,
+                    MemberId = members[2].Id,
+                    CheckInTime = new DateTime(2017, 11, 4, 10, 14, 00)
+                },
+                new Models.ParkedVehicle
+                {
                     RegNo = "EFG123",
                     Brand = "Yamaha",
                     Model = "YS125",

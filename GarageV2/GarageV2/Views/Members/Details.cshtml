@@ -6,66 +6,65 @@
 
 <h2>@ViewBag.Title</h2>
 
-<div style="float: left;">
+<div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
+    <div style="float: left; margin-right: 20px;">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Id)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
 
-    </dl>
-</div>
-<div style="float: left;">
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-
-    </dl>
+        </dl>
+    </div>
+    <div style="float: left;">
+        <table border="0">
+            @{
+                int antalFordon = 1;
+            }
+            @foreach (var vehicle in Model.ParkedVehicles)
+            {
+                <tr>
+                    <td class="col-md-3 progress-bar-success" colspan="2">
+                        Fordon @antalFordon
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @{
+                            antalFordon++;
+                        }
+                        @Html.DisplayFor(v => vehicle.VehicleType.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(v => vehicle.RegNo)
+                    </td>
+                </tr>
+                            }
+        </table>
+    </div>
 </div>
 <p style="clear: both;">
     @Html.ActionLink("Ändra", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Ta bort", "Delete", new { id = Model.Id }) | 
+    @Html.ActionLink("Ta bort", "Delete", new { id = Model.Id }) |
     @Html.ActionLink("Visa alla medlemmar", "Index")
 </p>
