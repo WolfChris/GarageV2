@@ -164,7 +164,7 @@ namespace GarageV2.Controllers
             if (searchBy == "VehicleType")
             {
                 var vehicleType = parkedVehicles.Where(v => v.VehicleType.Name.ToLower().Contains(search.ToLower())).
-                Select(v => new GarageV2.ViewModels.OverviewViewModel
+                Select(v => new GarageV2.ViewModels.DetailedOverviewViewModel
                 {
                     Id = v.Id,
                     RegNo = v.RegNo,
@@ -179,7 +179,7 @@ namespace GarageV2.Controllers
 
             if (searchBy == "RegNo")
             {
-                var vehiclesRegNo = parkedVehicles.Where(v => v.RegNo.ToLower() == search.ToLower())
+                var vehiclesRegNo = parkedVehicles.Where(v => v.RegNo.ToLower().Contains(search.ToLower()))
                 .Select(v => new GarageV2.ViewModels.DetailedOverviewViewModel
                 {
                     Id = v.Id,
@@ -203,7 +203,7 @@ namespace GarageV2.Controllers
             if (searchBy == "Color")
             {
                 var vehiclesColor = parkedVehicles.Where(v => (v.Color ?? "").
-                                                        ToLower() == search.ToLower())
+                                                        ToLower().Contains(search.ToLower()))
                 .Select(v => new GarageV2.ViewModels.DetailedOverviewViewModel
                 {
                     Id = v.Id,
@@ -218,6 +218,22 @@ namespace GarageV2.Controllers
                     Model = v.Model,
                     NumberOfWheels = v.NumberOfWheels,
                     TotalPrice = TotalPriceString(v.CheckInTime, DateTime.Now, db.Garage.FirstOrDefault().PricePerHour)
+                })
+                .ToList();
+
+                return View(vehiclesColor);
+            }
+            if (searchBy == "Owner")
+            {
+                var vehiclesColor = parkedVehicles.Where(v => (v.Member.FullName.ToLower() ?? "")
+                                                        .Contains(search.ToLower()))
+                .Select(v => new GarageV2.ViewModels.DetailedOverviewViewModel
+                {
+                    Id = v.Id,
+                    RegNo = v.RegNo,
+                    VehicleType = v.VehicleType.Name,
+                    Owner = v.Member.FullName,
+                    TimeParked = TimeParkedLongString(v.CheckInTime, DateTime.Now)
                 })
                 .ToList();
 
@@ -289,7 +305,7 @@ namespace GarageV2.Controllers
 
             if (searchBy == "RegNo")
             {
-                var vehiclesRegNo = parkedVehicles.Where(v => v.RegNo == search).
+                var vehiclesRegNo = parkedVehicles.Where(v => v.RegNo.ToLower().Contains(search.ToLower())).
                 Select(v => new GarageV2.ViewModels.OverviewViewModel
                 {
                     Id = v.Id,
@@ -305,9 +321,9 @@ namespace GarageV2.Controllers
 
             if (searchBy == "Owner")
             {
-                var vehiclesColor = parkedVehicles.Where(v => (v.Member.FullName ?? "").
-                                                        ToLower() ==  search.ToLower()).
-                Select(v => new GarageV2.ViewModels.OverviewViewModel
+                var vehiclesColor = parkedVehicles.Where(v => (v.Member.FullName.ToLower() ?? "")
+                                                        .Contains(search.ToLower()))
+                .Select(v => new GarageV2.ViewModels.OverviewViewModel
                 {
                     Id = v.Id,
                     RegNo = v.RegNo,

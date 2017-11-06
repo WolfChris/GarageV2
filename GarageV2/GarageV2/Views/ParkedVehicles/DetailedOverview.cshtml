@@ -11,8 +11,11 @@
     {
         <div class="form-group">
             <label class="control-label">S&ouml;k via: </label>
-            @Html.RadioButton("searchBy", "RegNo", true) <text>Registreringsnummer</text>
+            @Html.RadioButton("searchBy", "VehicleType", true) <text>Fordonstyp</text>
+            @Html.RadioButton("searchBy", "RegNo") <text>Registreringsnummer</text>
             @Html.RadioButton("searchBy", "Color") <text>F&auml;rg</text>
+            @Html.RadioButton("searchBy", "Owner") <text>&Auml;gare</text>
+           
         </div>
         <div class="form-group form-inline">
             @Html.TextBox("search", "", new { @class = "form-control" })
