@@ -15,7 +15,7 @@ namespace GarageV2.ViewModels
         [Display(Name = "Fordonstyp Id")]
         public int VehicleTypeId { get; set; }
 
-        [Display(Name = "Ägar Id")]
+        [Display(Name = "Medlemsnummer")]
         public int MemberId { get; set; }
 
         [Display(Name = "Fordonstyp")]
@@ -24,7 +24,7 @@ namespace GarageV2.ViewModels
         [Display(Name = "Reg nr")]
         public string RegNo { get; set; }
 
-        [Display(Name = "Ägare")]
+        [Display(Name = "Medlem")]
         public string MemberName { get; set; }
 
         [Display(Name = "Färg")]
@@ -43,7 +43,9 @@ namespace GarageV2.ViewModels
         {
             Id = vehicle.Id;
             RegNo = vehicle.RegNo;
+            VehicleTypeId = vehicle.VehicleTypeId;
             VehicleType = vehicle.VehicleType.Name;
+            MemberId = vehicle.MemberId;
             MemberName = vehicle.Member.FullName;
             Color = vehicle.Color;
             Brand = vehicle.Brand;

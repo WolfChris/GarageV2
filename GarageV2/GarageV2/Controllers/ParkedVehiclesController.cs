@@ -21,19 +21,18 @@ namespace GarageV2.Controllers
 
         #region CheckIn
 
-        public ActionResult CheckIn(int? memberId)
+        public ActionResult CheckIn(int? id)
         {
             var checkInViewModel = new ViewModels.CheckInViewModel();
             checkInViewModel.Members = db.Member.ToList().Select(v => new SelectListItem
             {
-                Selected = v.Id == memberId,
+                Selected = (v.Id == id),
                 Value = v.Id.ToString(),
                 Text = v.FullName
             });
 
             checkInViewModel.VehicleTypes = db.VehicleType.ToList().Select(v => new SelectListItem
             {
-                //Selected = v.Id==3,
                 Value = v.Id.ToString(),
                 Text = v.Name
             });
