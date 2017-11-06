@@ -1,13 +1,14 @@
 ﻿@model GarageV2.Models.Member
 
 @{
-    ViewBag.Title = "CreateDetails";
+    ViewBag.Title = "Ny medlem";
 }
 
-<h2>CreateDetails</h2>
+<div class="glyphicon-dashboard" style="background-color: lightgreen; color: white; height: 100px; font-size: 26px; text-align: center; margin-top: 20px;">
+    Välkommen till garaget  !
+</div>
 
 <div>
-    <h4>Member</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -15,9 +16,8 @@
         </dt>
 
         <dd>
-            <label>@ViewBag.MemberId</label>
+            @Html.DisplayFor(model => model.Id)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
@@ -37,5 +37,7 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Ändra", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Visa alla medlemmar", "Index") |  
+    @Html.ActionLink("Checka in fordon", "CheckIn", "ParkedVehicles")
 </p>

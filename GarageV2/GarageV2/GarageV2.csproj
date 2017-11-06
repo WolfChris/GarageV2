@@ -233,6 +233,10 @@
     <Compile Include="Migrations\201711021428255_CreateMember.Designer.cs">
       <DependentUpon>201711021428255_CreateMember.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711060803272_MergeJohnDevelopment.cs" />
+    <Compile Include="Migrations\201711060803272_MergeJohnDevelopment.Designer.cs">
+      <DependentUpon>201711060803272_MergeJohnDevelopment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Garage.cs" />
     <Compile Include="Models\Member.cs" />
@@ -370,6 +374,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711021428255_CreateMember.resx">
       <DependentUpon>201711021428255_CreateMember.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711060803272_MergeJohnDevelopment.resx">
+      <DependentUpon>201711060803272_MergeJohnDevelopment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

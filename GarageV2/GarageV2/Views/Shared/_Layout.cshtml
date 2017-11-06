@@ -16,17 +16,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Garage 2.0", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Garage 2.5", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Checka in", "CheckIn", "ParkedVehicles")</li>
-                    @*<li>@Html.ActionLink("Check Out", "AskToCheckOut", "ParkedVehicles")</li>*@
                     <li>@Html.ActionLink("Checka ut", "CheckOut", "ParkedVehicles")</li>
-                    <li>@Html.ActionLink("Översikt", "Overview", "ParkedVehicles")</li>
-                    @*<li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                    <li>@Html.ActionLink("Parkerade fordon", "Overview", "ParkedVehicles")</li>
+                    <li>@Html.ActionLink("Medlemmar", "Index", "Members")</li>
                 </ul>
             </div>
         </div>

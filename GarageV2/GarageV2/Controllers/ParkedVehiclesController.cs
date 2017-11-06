@@ -1,13 +1,12 @@
-﻿using System;
+﻿using GarageV2.DataAccessLayer;
+using GarageV2.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using GarageV2.DataAccessLayer;
-using GarageV2.Models;
 
 namespace GarageV2.Controllers
 {
@@ -142,29 +141,76 @@ namespace GarageV2.Controllers
 
         #region Overview, Details, Edit    
 
-        public ActionResult DetailedOverview()
+        public ActionResult DetailedOverview(string searchBy, string search)
         {
             var dbParkedVehicles = db.ParkedVehicle;
             List<ParkedVehicle> parkedVehicles = dbParkedVehicles.ToList();
-            var vehicles = parkedVehicles
-                .Select(v => new GarageV2.ViewModels.DetailedOverviewViewModel
+
+            if (searchBy == "RegNo")
+            {
+                var vehiclesRegNo = parkedVehicles.Where(v => v.RegNo == search).
+                Select(v => new GarageV2.ViewModels.OverviewViewModel
                 {
                     Id = v.Id,
                     RegNo = v.RegNo,
                     VehicleType = v.VehicleType.Name,
                     Owner = v.Member.FullName,
-                    TimeParked = TimeParkedShortString(v.CheckInTime, DateTime.Now),
-                    CheckInTime = v.CheckInTime,
-                    CheckOutTime = v.CheckOutTime,
-                    Color = v.Color,
-                    Brand = v.Brand,
-                    Model = v.Model,
-                    NumberOfWheels = v.NumberOfWheels,
-                    TotalPrice = TotalPriceString(v.CheckInTime, DateTime.Now, db.Garage.FirstOrDefault().PricePerHour)
+                    TimeParked = TimeParkedLongString(v.CheckInTime, DateTime.Now)
+                })
+                .ToList();
+
+                return View(vehiclesRegNo);
+            }
+
+            if (searchBy == "Color")
+            {
+                var vehiclesRegNo = parkedVehicles.Where(v => v.Color == search).
+                Select(v => new GarageV2.ViewModels.OverviewViewModel
+                {
+                    Id = v.Id,
+                    RegNo = v.RegNo,
+                    VehicleType = v.VehicleType.Name,
+                    Owner = v.Member.FullName,
+                    TimeParked = TimeParkedLongString(v.CheckInTime, DateTime.Now)
+                })
+                .ToList();
+
+                return View(vehiclesRegNo);
+            }
+            var vehicles = parkedVehicles
+                .Select(v => new GarageV2.ViewModels.OverviewViewModel
+                {
+                    Id = v.Id,
+                    RegNo = v.RegNo,
+                    VehicleType = v.VehicleType.Name,
+                    Owner = v.Member.FullName,
+                    TimeParked = TimeParkedLongString(v.CheckInTime, DateTime.Now)
                 })
                 .ToList();
 
             return View(vehicles);
+
+            //var dbParkedVehicles = db.ParkedVehicle;
+            //List<ParkedVehicle> parkedVehicles = dbParkedVehicles.ToList();
+            //var vehicles = parkedVehicles
+            //    .Select(v => new GarageV2.ViewModels.DetailedOverviewViewModel
+            //    {
+            //        Id = v.Id,
+            //        RegNo = v.RegNo,
+            //        VehicleType = v.VehicleType.Name,
+            //        Owner = v.Member.FullName,
+            //        TimeParked = TimeParkedShortString(v.CheckInTime, DateTime.Now),
+            //        CheckInTime = v.CheckInTime,
+            //        CheckOutTime = v.CheckOutTime,
+            //        Color = v.Color,
+            //        Brand = v.Brand,
+            //        Model = v.Model,
+            //        NumberOfWheels = v.NumberOfWheels,
+            //        TotalPrice = TotalPriceString(v.CheckInTime, DateTime.Now, db.Garage.FirstOrDefault().PricePerHour)
+            //    })
+            //    .ToList();
+
+            //return View(vehicles);
         }
 
         public ActionResult Overview(string searchBy, string search)

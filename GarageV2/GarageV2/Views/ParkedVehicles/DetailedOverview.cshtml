@@ -7,13 +7,13 @@
 <h2>@ViewBag.Title</h2>
 
 <p>
-    @using (Html.BeginForm("Overview", "ParkedVehicles", FormMethod.Get))
+    @using (Html.BeginForm("DetailedOverview", "ParkedVehicles", FormMethod.Get))
     {
         <label class="control-label col-md-1">S&ouml;k via: </label>
         @Html.RadioButton("searchBy", "RegNo", true) <text>Registreringsnummer</text><br />
         @Html.RadioButton("searchBy", "Color") <text>F&auml;rg</text><br />
-        @Html.TextBox("search", "", new { htmlAttributes = new { @class = "form-control" } }) <input type="submit" value="Sök" class="btn btn-default" />
-        @*@Html.EditorFor(model => model.RegNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ange registreringsnummer"} })*@
+        @Html.TextBox("search", "", new { @class = "form-control", style = "display: inline;" })
+        <input type="submit" value="Sök" class="btn btn-default" style="display: inline;" />
     }
 </p>
 
@@ -37,6 +37,8 @@
         <tr>
             <td colspan="4">
                 Inga fordon kan visas utefter din sökning
+                <br />
+                @Html.ActionLink("Visa alla parkerade fordon", "Overview")
             </td>
         </tr>
     }
@@ -64,8 +66,3 @@
         }
     }
 </table>
-
-<div>
-    <br />
-    @Html.ActionLink("Visa alla parkerade fordon", "Overview")
-</div>

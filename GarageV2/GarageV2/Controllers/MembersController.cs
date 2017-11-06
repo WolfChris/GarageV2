@@ -18,7 +18,7 @@ namespace GarageV2.Controllers
             var members = db.Member.ToList();
             if (searchBy == "FirstName")
             {
-                var mem = members.Where(m => m.LastName == search)
+                var mem = members.Where(m => m.FirstName.ToLower() == search.ToLower())
                 .Select(m => new GarageV2.ViewModels.MemberOverviewViewModel
                 {
                     Id = m.Id,
@@ -68,9 +68,17 @@ namespace GarageV2.Controllers
             return View(member);
         }
 
-        public ActionResult CreateDetails(string FirstName, string LastName)
+        public ActionResult CreateDetails(int? id)
         {
-            Member member = new Member() { FirstName = FirstName, LastName = LastName};
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Member member = db.Member.Find(id);
+            if (member == null)
+            {
+                return HttpNotFound();
+            }
             return View(member);
         }
 
@@ -93,7 +101,7 @@ namespace GarageV2.Controllers
 
                 db.Member.Add(member);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return View("CreateDetails", member);
             }
 
             return View(member);
