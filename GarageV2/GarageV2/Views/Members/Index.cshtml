@@ -8,11 +8,17 @@
 <p>
     @using (Html.BeginForm("Index", "Members", FormMethod.Get))
     {
-        <label class="control-label col-md-1">S&ouml;k via: </label>
-        @Html.RadioButton("searchBy", "FirstName", true) <text>F&ouml;rnamn</text><br />
-        @Html.RadioButton("searchBy", "LastName") <text>Efternamn</text>
-        @Html.TextBox("search", "", new { @class = "form-control", style = "display: inline; margin-top: -23px;" })
-        <input type="submit" value="Sök" class="btn btn-default" style="display: inline; margin-top: -23px;" />
+        <div>
+            <div class="form-group">
+                <label class="control-label">S&ouml;k via: </label>
+                @Html.RadioButton("searchBy", "FirstName", true) <text>F&ouml;rnamn</text>
+                @Html.RadioButton("searchBy", "LastName") <text>Efternamn</text>
+            </div>
+            <div class="form-group form-inline">
+                @Html.TextBox("search", "", new { @class = "form-control"})
+                <input type="submit" value="Sök" class="btn btn-default" />
+            </div>
+        </div>
     }
 </p>
 <p>

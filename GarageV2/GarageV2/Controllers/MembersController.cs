@@ -31,7 +31,7 @@ namespace GarageV2.Controllers
             }
             if (searchBy == "LastName")
             {
-                var mem = members.Where(m => m.LastName == search)
+                var mem = members.Where(m => m.LastName.ToLower() == search.ToLower())
                 .Select(m => new GarageV2.ViewModels.MemberOverviewViewModel
                 {
                     Id = m.Id,

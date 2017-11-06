@@ -154,7 +154,7 @@ namespace GarageV2.Controllers
 
             if (searchBy == "RegNo")
             {
-                var vehiclesRegNo = parkedVehicles.Where(v => v.RegNo == search).
+                var vehiclesRegNo = parkedVehicles.Where(v => v.RegNo.ToLower() == search.ToLower()).
                 Select(v => new GarageV2.ViewModels.OverviewViewModel
                 {
                     Id = v.Id,
@@ -170,7 +170,7 @@ namespace GarageV2.Controllers
 
             if (searchBy == "Color")
             {
-                var vehiclesRegNo = parkedVehicles.Where(v => v.Color == search).
+                var vehiclesRegNo = parkedVehicles.Where(v => v.Color.ToLower() == search.ToLower()).
                 Select(v => new GarageV2.ViewModels.OverviewViewModel
                 {
                     Id = v.Id,
