@@ -1,6 +1,5 @@
 ﻿using GarageV2.DataAccessLayer;
 using GarageV2.Models;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -135,52 +134,6 @@ namespace GarageV2.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(member);
-        }
-
-        public ActionResult MemberOverview(string searchBy, string search)
-        {
-            var dbMember = db.Member;
-            List<Member> Members = dbMember.ToList();
-
-            if (searchBy == "FirstName")
-            {
-                var memberFirstName = Members.Where(m => m.FirstName == search).
-                Select(m => new GarageV2.ViewModels.MemberOverviewViewModel
-                {
-                    Id = m.Id,
-                    FirstName = m.FirstName,
-                    LastName = m.LastName
-                })
-                .ToList();
-
-                return View(memberFirstName);
-            }
-
-            //if (searchBy == "Color")
-            //{
-            //    var vehiclesRegNo = parkedVehicles.Where(v => v.Color == search).
-            //    Select(v => new GarageV2.ViewModels.OverviewViewModel
-            //    {
-            //        Id = v.Id,
-            //        RegNo = v.RegNo,
-            //        Type = v.Type.ToString(),
-            //        Color = v.Color,
-            //        TimeParked = TimeParked(v.CheckInTime, DateTime.Now)
-            //    })
-            //    .ToList();
-
-            //    return View(vehiclesRegNo);
-            //}
-            var member = Members
-                .Select(m => new GarageV2.ViewModels.MemberOverviewViewModel
-                {
-                    Id = m.Id,
-                    FirstName = m.FirstName,
-                    LastName = m.LastName
-                })
-                .ToList();
-
             return View(member);
         }
 
