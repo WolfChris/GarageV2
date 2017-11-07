@@ -9,13 +9,13 @@ namespace GarageV2.ViewModels
     public class OverviewViewModel
     {
         public int Id { get; set; }
-        
+
         public int OwnerId { get; set; }
 
         [Display(Name = "Ägare")]
         public string Owner { get; set; }
 
-        [Display(Name ="Fordonstyp")]
+        [Display(Name = "Fordonstyp")]
         public string VehicleType { get; set; }
 
         [Display(Name = "Reg nr")]
@@ -23,6 +23,18 @@ namespace GarageV2.ViewModels
 
         [Display(Name = "Parkerad tid")]
         public string TimeParked { get; set; }
+
+        public OverviewViewModel() { }
+
+        public OverviewViewModel(Models.ParkedVehicle vehicle)
+        {
+            var parkedVehiclesController = new Controllers.ParkedVehiclesController();
+            Id = vehicle.Id;
+            RegNo = vehicle.RegNo;
+            VehicleType = vehicle.VehicleType.Name;
+            Owner = vehicle.Member.FullName;
+            TimeParked = parkedVehiclesController.TimeParkedLongString(vehicle.CheckInTime, DateTime.Now);
+        }
 
     }
 }

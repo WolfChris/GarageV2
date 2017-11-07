@@ -6,7 +6,7 @@ using System.Web;
 
 namespace GarageV2.ViewModels
 {
-    public class DetailedOverviewViewModel 
+    public class DetailedOverviewViewModel
     {
         public int Id { get; set; }
 
@@ -23,7 +23,7 @@ namespace GarageV2.ViewModels
 
         [Display(Name = "Parkerad tid")]
         public string TimeParked { get; set; }
-        
+
         [Display(Name = "Färg")]
         public string Color { get; set; }
 
@@ -32,7 +32,7 @@ namespace GarageV2.ViewModels
 
         [Display(Name = "Modell")]
         public string Model { get; set; }
-        
+
         [Display(Name = "Antal hjul")]
         public int NumberOfWheels { get; set; }
 
@@ -41,8 +41,29 @@ namespace GarageV2.ViewModels
 
         [Display(Name = "Utcheckad")]
         public Nullable<DateTime> CheckOutTime { get; set; }
-        
+
         [Display(Name = "Totalt pris")]
         public string TotalPrice { get; set; }
+
+        public DetailedOverviewViewModel() { }
+
+        public DetailedOverviewViewModel(Models.ParkedVehicle vehicle, double pricePerHour)
+        {
+            var parkedVehiclesController = new Controllers.ParkedVehiclesController();
+            Id = vehicle.Id;
+            RegNo = vehicle.RegNo;
+            VehicleType = vehicle.VehicleType.Name;
+            OwnerId = vehicle.MemberId;
+            Owner = vehicle.Member.FullName;
+            TimeParked = parkedVehiclesController.TimeParkedShortString(vehicle.CheckInTime, DateTime.Now);
+            CheckInTime = vehicle.CheckInTime;
+            CheckOutTime = vehicle.CheckOutTime;
+            Color = vehicle.Color;
+            Brand = vehicle.Brand;
+            Model = vehicle.Model;
+            NumberOfWheels = vehicle.NumberOfWheels;
+            TotalPrice = parkedVehiclesController.TotalPriceString(vehicle.CheckInTime, DateTime.Now, pricePerHour);
+
+        }
     }
 }
