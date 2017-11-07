@@ -45,6 +45,13 @@ namespace GarageV2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CheckIn([Bind(Include = "Id,VehicleTypeId,MemberId,RegNo,Color,Brand,Model,NumberOfWheels")] ParkedVehicle newVehicle)
         {
+            ParkedVehicle alreadyParkedVehicle = db.ParkedVehicle.FirstOrDefault(v => v.RegNo == newVehicle.RegNo);
+            if (alreadyParkedVehicle != null)
+            {
+                ModelState.AddModelError(string.Empty, $"Fordon med registreringsnummer {newVehicle.RegNo} är redan incheckat");
+            }
+
+
             if (ModelState.IsValid)
             {
                 db.ParkedVehicle.Add(newVehicle);
@@ -55,7 +62,21 @@ namespace GarageV2.Controllers
                 return View("CheckInConfirmed", parkedVehicle);
             }
 
-            return View(newVehicle);
+            var checkInViewModel = new ViewModels.CheckInViewModel(newVehicle);
+            checkInViewModel.Members = db.Member.ToList().Select(v => new SelectListItem
+            {
+                Selected = (v.Id == checkInViewModel.MemberId),
+                Value = v.Id.ToString(),
+                Text = v.FullName
+            });
+
+            checkInViewModel.VehicleTypes = db.VehicleType.ToList().Select(v => new SelectListItem
+            {
+                Selected = (v.Id == checkInViewModel.VehicleTypeId),
+                Value = v.Id.ToString(),
+                Text = v.Name
+            });
+            return View(checkInViewModel);
         }
         #endregion
 
@@ -307,19 +328,48 @@ namespace GarageV2.Controllers
             if (TryUpdateModel(vehicleToUpdate, "",
                new string[] { "Id", "VehicleTypeId", "MemberId", "RegNo", "Color", "Brand", "Model", "NumberOfWheels" }))
             {
-                try
+
+                ParkedVehicle alreadyParkedVehicle = db.ParkedVehicle
+                    .Where(v => v.Id != vehicleToUpdate.Id)
+                    .FirstOrDefault(v => v.RegNo.ToLower() == vehicleToUpdate.RegNo.ToLower());
+                if (alreadyParkedVehicle != null)
                 {
-                    db.SaveChanges();
-                    var detailViewModel = new ViewModels.DetailsViewModel(vehicleToUpdate);
-                    return View("Details", detailViewModel);
+                    ModelState.AddModelError(string.Empty, $"Fordon med registreringsnummer {alreadyParkedVehicle.RegNo} finns redan");
                 }
-                catch (DataException /* dex */)
+
+
+                if (ModelState.IsValid)
                 {
-                    //Log the error (uncomment dex variable name and add a line here to write a log.
-                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+
+                    try
+                    {
+                        db.SaveChanges();
+                        var detailViewModel = new ViewModels.DetailsViewModel(vehicleToUpdate);
+                        return View("Details", detailViewModel);
+                    }
+                    catch (DataException /* dex */)
+                    {
+                        //Log the error (uncomment dex variable name and add a line here to write a log.
+                        ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                    }
                 }
             }
-            return View(vehicleToUpdate);
+
+            var editViewModel = new ViewModels.EditViewModel(vehicleToUpdate);
+            editViewModel.VehicleTypes = db.VehicleType.ToList().Select(v => new SelectListItem
+            {
+                Selected = (v.Id == vehicleToUpdate.VehicleTypeId),
+                Value = v.Id.ToString(),
+                Text = v.Name
+            });
+
+            editViewModel.Members = db.Member.ToList().Select(v => new SelectListItem
+            {
+                Selected = (v.Id == vehicleToUpdate.MemberId),
+                Value = v.Id.ToString(),
+                Text = v.FullName
+            });
+            return View(editViewModel);
         }
 
         #endregion
