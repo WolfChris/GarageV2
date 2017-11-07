@@ -25,7 +25,6 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -156,10 +155,11 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\GarageHandler.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\ParkedVehiclesController.cs" />
+    <Compile Include="DataAccessLayer\GarageContext.cs" />
     <Compile Include="DataAccessLayer\ParkedVehicleContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -168,92 +168,14 @@
     <Compile Include="Migrations\201710231411180_Garagev2Migration.Designer.cs">
       <DependentUpon>201710231411180_Garagev2Migration.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201710241218584_ParkedVehicle.cs" />
-    <Compile Include="Migrations\201710241218584_ParkedVehicle.Designer.cs">
-      <DependentUpon>201710241218584_ParkedVehicle.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710241252576_ParkedVehicle1.cs" />
-    <Compile Include="Migrations\201710241252576_ParkedVehicle1.Designer.cs">
-      <DependentUpon>201710241252576_ParkedVehicle1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710241354315_ParkedVehicle2.cs" />
-    <Compile Include="Migrations\201710241354315_ParkedVehicle2.Designer.cs">
-      <DependentUpon>201710241354315_ParkedVehicle2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710241417168_ParkedVehicle3.cs" />
-    <Compile Include="Migrations\201710241417168_ParkedVehicle3.Designer.cs">
-      <DependentUpon>201710241417168_ParkedVehicle3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710251200150_vehicleTypeEnum.cs" />
-    <Compile Include="Migrations\201710251200150_vehicleTypeEnum.Designer.cs">
-      <DependentUpon>201710251200150_vehicleTypeEnum.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710251222448_vehicleTypeEnum2.cs" />
-    <Compile Include="Migrations\201710251222448_vehicleTypeEnum2.Designer.cs">
-      <DependentUpon>201710251222448_vehicleTypeEnum2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710260945339_AddGarage.cs" />
-    <Compile Include="Migrations\201710260945339_AddGarage.Designer.cs">
-      <DependentUpon>201710260945339_AddGarage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710311436151_AddGarage2.cs" />
-    <Compile Include="Migrations\201710311436151_AddGarage2.Designer.cs">
-      <DependentUpon>201710311436151_AddGarage2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710311447293_RemoveGarageContext.cs" />
-    <Compile Include="Migrations\201710311447293_RemoveGarageContext.Designer.cs">
-      <DependentUpon>201710311447293_RemoveGarageContext.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711021012164_addMemberVehicleType.cs" />
-    <Compile Include="Migrations\201711021012164_addMemberVehicleType.Designer.cs">
-      <DependentUpon>201711021012164_addMemberVehicleType.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711021041087_typeIdChanges.cs" />
-    <Compile Include="Migrations\201711021041087_typeIdChanges.Designer.cs">
-      <DependentUpon>201711021041087_typeIdChanges.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711021203079_virtualChanges.cs" />
-    <Compile Include="Migrations\201711021203079_virtualChanges.Designer.cs">
-      <DependentUpon>201711021203079_virtualChanges.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711021224296_changeTypeToStringInParkedVEhicle.cs" />
-    <Compile Include="Migrations\201711021224296_changeTypeToStringInParkedVEhicle.Designer.cs">
-      <DependentUpon>201711021224296_changeTypeToStringInParkedVEhicle.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711021240138_VrhicleType.cs" />
-    <Compile Include="Migrations\201711021240138_VrhicleType.Designer.cs">
-      <DependentUpon>201711021240138_VrhicleType.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711021517282_CheckInViewModel.cs" />
-    <Compile Include="Migrations\201711021517282_CheckInViewModel.Designer.cs">
-      <DependentUpon>201711021517282_CheckInViewModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711021428255_CreateMember.cs" />
-    <Compile Include="Migrations\201711021428255_CreateMember.Designer.cs">
-      <DependentUpon>201711021428255_CreateMember.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711060803272_MergeJohnDevelopment.cs" />
-    <Compile Include="Migrations\201711060803272_MergeJohnDevelopment.Designer.cs">
-      <DependentUpon>201711060803272_MergeJohnDevelopment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711061255414_changeCheckInViewModel.cs" />
-    <Compile Include="Migrations\201711061255414_changeCheckInViewModel.Designer.cs">
-      <DependentUpon>201711061255414_changeCheckInViewModel.cs</DependentUpon>
+    <Compile Include="Migrations\201710240746154_Garage.cs" />
+    <Compile Include="Migrations\201710240746154_Garage.Designer.cs">
+      <DependentUpon>201710240746154_Garage.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Garage.cs" />
-    <Compile Include="Models\Member.cs" />
-    <Compile Include="Models\VehicleType.cs" />
     <Compile Include="Models\ParkedVehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\CheckInViewModel.cs" />
-    <Compile Include="ViewModels\CheckOutViewModel.cs" />
-    <Compile Include="ViewModels\DetailedOverviewViewModel.cs" />
-    <Compile Include="ViewModels\DetailsViewModel.cs" />
-    <Compile Include="ViewModels\EditViewModel.cs" />
-    <Compile Include="ViewModels\MemberOverviewViewModel.cs" />
-    <Compile Include="ViewModels\OverviewViewModel.cs" />
-    <Compile Include="ViewModels\ReceiptViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -262,9 +184,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="images\lot_Skyview.jpg" />
-    <Content Include="images\No_Admittance.png" />
-    <Content Include="images\parkingsign.gif" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -295,21 +214,15 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\ParkedVehicles\Create.cshtml" />
+    <Content Include="Views\ParkedVehicles\Delete.cshtml" />
     <Content Include="Views\ParkedVehicles\Details.cshtml" />
     <Content Include="Views\ParkedVehicles\Edit.cshtml" />
+    <Content Include="Views\ParkedVehicles\Index.cshtml" />
     <Content Include="Views\ParkedVehicles\CheckIn.cshtml" />
-    <Content Include="Views\ParkedVehicles\Overview.cshtml" />
-    <Content Include="Views\ParkedVehicles\CheckOut.cshtml" />
-    <Content Include="Views\ParkedVehicles\Receipt.cshtml" />
-    <Content Include="Views\ParkedVehicles\DetailedOverview.cshtml" />
-    <Content Include="Views\Members\Create.cshtml" />
-    <Content Include="Views\Members\Delete.cshtml" />
-    <Content Include="Views\Members\Details.cshtml" />
-    <Content Include="Views\Members\Edit.cshtml" />
-    <Content Include="Views\Members\Index.cshtml" />
-    <Content Include="Views\Members\CreateDetails.cshtml" />
-    <Content Include="Views\ParkedVehicles\CheckInConfirmed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -326,59 +239,8 @@
     <EmbeddedResource Include="Migrations\201710231411180_Garagev2Migration.resx">
       <DependentUpon>201710231411180_Garagev2Migration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710241218584_ParkedVehicle.resx">
-      <DependentUpon>201710241218584_ParkedVehicle.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710241252576_ParkedVehicle1.resx">
-      <DependentUpon>201710241252576_ParkedVehicle1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710241354315_ParkedVehicle2.resx">
-      <DependentUpon>201710241354315_ParkedVehicle2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710241417168_ParkedVehicle3.resx">
-      <DependentUpon>201710241417168_ParkedVehicle3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710251200150_vehicleTypeEnum.resx">
-      <DependentUpon>201710251200150_vehicleTypeEnum.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710251222448_vehicleTypeEnum2.resx">
-      <DependentUpon>201710251222448_vehicleTypeEnum2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710260945339_AddGarage.resx">
-      <DependentUpon>201710260945339_AddGarage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710311436151_AddGarage2.resx">
-      <DependentUpon>201710311436151_AddGarage2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710311447293_RemoveGarageContext.resx">
-      <DependentUpon>201710311447293_RemoveGarageContext.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711021012164_addMemberVehicleType.resx">
-      <DependentUpon>201711021012164_addMemberVehicleType.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711021041087_typeIdChanges.resx">
-      <DependentUpon>201711021041087_typeIdChanges.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711021203079_virtualChanges.resx">
-      <DependentUpon>201711021203079_virtualChanges.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711021224296_changeTypeToStringInParkedVEhicle.resx">
-      <DependentUpon>201711021224296_changeTypeToStringInParkedVEhicle.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711021240138_VrhicleType.resx">
-      <DependentUpon>201711021240138_VrhicleType.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711021517282_CheckInViewModel.resx">
-      <DependentUpon>201711021517282_CheckInViewModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711021428255_CreateMember.resx">
-      <DependentUpon>201711021428255_CreateMember.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711060803272_MergeJohnDevelopment.resx">
-      <DependentUpon>201711060803272_MergeJohnDevelopment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711061255414_changeCheckInViewModel.resx">
-      <DependentUpon>201711061255414_changeCheckInViewModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710240746154_Garage.resx">
+      <DependentUpon>201710240746154_Garage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

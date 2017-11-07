@@ -1,18 +1,70 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace GarageV2.Models
 {
-    public class Garage
-    {
-        public int Id { get; set; }
+        public class Garage<T> : IEnumerable<T> where T : ParkedVehicle
+        {
 
-        [Range(0,int.MaxValue)]
-        [Display(Name = "Antal platser")]
-        public int Capacity { get; set; }
+            private T[] vehicles;
 
-        [Range(0, Double.MaxValue)]
-        [Display(Name = "Pris per timme")]
-        public double PricePerHour { get; set; }
+            public int Capacity { get; set; }
+
+            public Garage(int capacity)
+            {
+                if (capacity < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(capacity), capacity, "Capacity can't be negative");
+                }
+                Capacity = capacity;
+
+                vehicles = new T[Capacity];
+                //PopulateArrayForTest();
+            }
+
+            internal bool AddVehicle(T v)
+            {
+                for (int i = 0; i < vehicles.Length; i++)
+                {
+                    if (vehicles[i] == null)
+                    {
+                        vehicles[i] = v;
+                        break;
+                    }
+                }
+                return true;
+            }
+
+            internal bool RemoveVehicle(T v)
+            {
+                for (int i = 0; i <= vehicles.Length; i++)
+                {
+                    if (vehicles[i] == v)
+                    {
+                        Console.WriteLine(vehicles[i].ToString());
+                        vehicles[i] = null;
+                        break;
+                    }
+                }
+                return true;
+            }
+
+            public IEnumerator<T> GetEnumerator()
+            {
+                for (int i = 0; i < Capacity; i++)
+                {
+                    if (vehicles[i] != null)
+                        yield return vehicles[i];
+                }
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
+            }
+        }
     }
-}
+
