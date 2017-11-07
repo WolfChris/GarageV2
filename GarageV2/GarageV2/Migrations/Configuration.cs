@@ -51,10 +51,10 @@ namespace GarageV2.Migrations
                 },
                 new Models.ParkedVehicle
                 {
-                    RegNo = "AWS111",
+                    RegNo = "AIR111",
                     Brand = "Concorde",
                     Model = "740",
-                    Color = "Red",
+                    Color = "Guld",
                     NumberOfWheels = 4,
                     VehicleTypeId = vehicleTypes[2].Id,
                     MemberId = members[1].Id,
@@ -62,7 +62,7 @@ namespace GarageV2.Migrations
                 },
                 new Models.ParkedVehicle
                 {
-                    RegNo = "CDE123",
+                    RegNo = "BIL123",
                     Brand = "Volvo",
                     Model = "9900",
                     Color = "Vit",
@@ -95,7 +95,7 @@ namespace GarageV2.Migrations
                 },
                 new Models.ParkedVehicle
                 {
-                    RegNo = "CDE456",
+                    RegNo = "EKA456",
                     Brand = "Yamarin",
                     Model = "Cross 60 Cabin ",
                     Color = "Grå",
