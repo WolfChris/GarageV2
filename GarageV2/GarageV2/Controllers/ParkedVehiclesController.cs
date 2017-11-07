@@ -110,6 +110,8 @@ namespace GarageV2.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ParkedVehicle vehicleDetail = db.ParkedVehicle.FirstOrDefault(v => v.RegNo == RegNo);
+            double pricePerHour = db.Garage.FirstOrDefault().PricePerHour;
+            vehicleDetail.TotalPrice = TotalPrice(vehicleDetail.CheckInTime, DateTime.Now, pricePerHour);
 
             if (vehicleDetail == null)
             {
