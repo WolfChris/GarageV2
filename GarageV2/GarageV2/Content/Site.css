@@ -23,8 +23,18 @@ textarea {
     max-width: 280px;
 }
 
+/* */
+.green-box {
+    background-color: lightgreen;
+    color: white;
+    height: 100px;
+    font-size: 26px;
+    text-align: center;
+    margin-top: 20px;
+}
+
 @media print {
-  .hidden-print {
-    display: none !important;
-  }
+    .hidden-print {
+        display: none !important;
+    }
 }
