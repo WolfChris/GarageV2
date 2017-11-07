@@ -42,5 +42,19 @@ namespace GarageV2.ViewModels
         public IEnumerable<SelectListItem> VehicleTypes { get; set; }
         public IEnumerable<SelectListItem> Members { get; set; }
 
+        public CheckInViewModel(){        }
+
+        public CheckInViewModel(Models.ParkedVehicle vehicle)
+        {
+            Id = vehicle.Id;
+            RegNo = vehicle.RegNo;
+            VehicleTypeId = vehicle.VehicleTypeId;
+            MemberId = vehicle.MemberId;
+            Color = vehicle.Color;
+            Brand = vehicle.Brand;
+            Model = vehicle.Model;
+            NumberOfWheels = vehicle.NumberOfWheels;
+        }
+
     }
 }
