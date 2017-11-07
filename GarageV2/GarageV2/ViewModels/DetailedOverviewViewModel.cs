@@ -10,6 +10,8 @@ namespace GarageV2.ViewModels
     {
         public int Id { get; set; }
 
+        public int OwnerId { get; set; }
+
         [Display(Name = "Ägare")]
         public string Owner { get; set; }
 

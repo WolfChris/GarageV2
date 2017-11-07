@@ -169,8 +169,16 @@ namespace GarageV2.Controllers
                     Id = v.Id,
                     RegNo = v.RegNo,
                     VehicleType = v.VehicleType.Name,
+                    OwnerId = v.MemberId,
                     Owner = v.Member.FullName,
-                    TimeParked = TimeParkedLongString(v.CheckInTime, DateTime.Now)
+                    TimeParked = TimeParkedShortString(v.CheckInTime, DateTime.Now),
+                    CheckInTime = v.CheckInTime,
+                    CheckOutTime = v.CheckOutTime,
+                    Color = v.Color,
+                    Brand = v.Brand,
+                    Model = v.Model,
+                    NumberOfWheels = v.NumberOfWheels,
+                    TotalPrice = TotalPriceString(v.CheckInTime, DateTime.Now, db.Garage.FirstOrDefault().PricePerHour)
                 })
                 .ToList();
 
@@ -185,6 +193,7 @@ namespace GarageV2.Controllers
                     Id = v.Id,
                     RegNo = v.RegNo,
                     VehicleType = v.VehicleType.Name,
+                    OwnerId = v.MemberId,
                     Owner = v.Member.FullName,
                     TimeParked = TimeParkedShortString(v.CheckInTime, DateTime.Now),
                     CheckInTime = v.CheckInTime,
@@ -232,8 +241,16 @@ namespace GarageV2.Controllers
                     Id = v.Id,
                     RegNo = v.RegNo,
                     VehicleType = v.VehicleType.Name,
+                    OwnerId = v.MemberId,
                     Owner = v.Member.FullName,
-                    TimeParked = TimeParkedLongString(v.CheckInTime, DateTime.Now)
+                    TimeParked = TimeParkedShortString(v.CheckInTime, DateTime.Now),
+                    CheckInTime = v.CheckInTime,
+                    CheckOutTime = v.CheckOutTime,
+                    Color = v.Color,
+                    Brand = v.Brand,
+                    Model = v.Model,
+                    NumberOfWheels = v.NumberOfWheels,
+                    TotalPrice = TotalPriceString(v.CheckInTime, DateTime.Now, db.Garage.FirstOrDefault().PricePerHour)
                 })
                 .ToList();
 
@@ -245,6 +262,7 @@ namespace GarageV2.Controllers
                     Id = v.Id,
                     RegNo = v.RegNo,
                     VehicleType = v.VehicleType.Name,
+                    OwnerId = v.MemberId,
                     Owner = v.Member.FullName,
                     TimeParked = TimeParkedShortString(v.CheckInTime, DateTime.Now),
                     CheckInTime = v.CheckInTime,
@@ -258,28 +276,7 @@ namespace GarageV2.Controllers
                 .ToList();
 
             return View(vehicles);
-
-            //var dbParkedVehicles = db.ParkedVehicle;
-            //List<ParkedVehicle> parkedVehicles = dbParkedVehicles.ToList();
-            //var vehicles = parkedVehicles
-            //    .Select(v => new GarageV2.ViewModels.DetailedOverviewViewModel
-            //    {
-            //        Id = v.Id,
-            //        RegNo = v.RegNo,
-            //        VehicleType = v.VehicleType.Name,
-            //        Owner = v.Member.FullName,
-            //        TimeParked = TimeParkedShortString(v.CheckInTime, DateTime.Now),
-            //        CheckInTime = v.CheckInTime,
-            //        CheckOutTime = v.CheckOutTime,
-            //        Color = v.Color,
-            //        Brand = v.Brand,
-            //        Model = v.Model,
-            //        NumberOfWheels = v.NumberOfWheels,
-            //        TotalPrice = TotalPriceString(v.CheckInTime, DateTime.Now, db.Garage.FirstOrDefault().PricePerHour)
-            //    })
-            //    .ToList();
-
-            //return View(vehicles);
+            
         }
 
         public ActionResult Overview(string searchBy, string search)
@@ -341,6 +338,7 @@ namespace GarageV2.Controllers
                     Id = v.Id,
                     RegNo = v.RegNo,
                     VehicleType = v.VehicleType.Name,
+                    OwnerId = v.MemberId,
                     Owner = v.Member.FullName,
                     TimeParked = TimeParkedLongString(v.CheckInTime, DateTime.Now)
                 })
