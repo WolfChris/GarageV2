@@ -32,6 +32,7 @@ namespace GarageV2.ViewModels
             Id = vehicle.Id;
             RegNo = vehicle.RegNo;
             VehicleType = vehicle.VehicleType.Name;
+            OwnerId = vehicle.VehicleTypeId;
             Owner = vehicle.Member.FullName;
             TimeParked = parkedVehiclesController.TimeParkedLongString(vehicle.CheckInTime, DateTime.Now);
         }

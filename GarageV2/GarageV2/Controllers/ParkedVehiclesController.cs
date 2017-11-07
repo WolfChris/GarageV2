@@ -120,7 +120,8 @@ namespace GarageV2.Controllers
                 ViewBag.AskForRegNo = false;
                 ViewBag.ConfirmedCheckOut = true;
                 ViewBag.checkedOut = false;
-                return View(vehicleDetail);
+                var checkOutViewModel = new ViewModels.CheckOutViewModel(vehicleDetail);
+                return View(checkOutViewModel);
             }
             ViewBag.AskForRegNo = true;
             ViewBag.ConfirmedCheckOut = false;
